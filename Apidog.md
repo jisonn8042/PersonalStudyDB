@@ -90,7 +90,29 @@ tokenを取得するAPIを作成した上、レスポンスとして取得した
 
 > tokenを作成する方法
 
-1. 
+1. API作成を参考してtoken値を取得するAPIを作成します。
+2. 画面中央上段にあるRequest、設計、プレビューの中でRequestをクリック
+3. 住所を書くところの下で右の方を見るとある"後処理"メニューをクリック
+4. 後処理を追加をクリック
+5. カスタムScriptをクリック
+6. レスポンスでtokenを取得して環境変数に保存するコードを作成 *（下のコード　例1を参照）*
+7. baseURLをセットするときに入った環境管理に入って環境変数のところに　変数名：access_token　現在値：token値でセットされていることを確認
+
+例1
+
+```javascript
+//JSON形式のレスポンスをJavaScriptで使えるオブジェクトに変換する
+const responseJson = pm.response.json();
+
+//ここは自分がセットしたレスポンスの形式に合わせてtokenの値を取得するようにコード作成
+const token = responseJson.token;
+
+//環境変数としてセット　変数名：access_token　値：token値
+pm.environment.set("access_token", token);
+
+//セットされたことを知らせるメッセージ
+console.log("新しいtokenが保存されました。" + token);
+```
 
 ***
 
@@ -109,6 +131,8 @@ tokenを取得するAPIを作成した上、レスポンスとして取得した
 3. 上段の住所入力欄に登録するAPIのメソッド、既に入力されているbaseURLの後ろにendpointを作成
 
 #### 2.2. Header作成
+
+> Header作成方法
 
 
 
