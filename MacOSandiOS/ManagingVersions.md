@@ -174,7 +174,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 </br>
 </br>
 
-**2. rbenv,ruby-buildの設置**
+### 2. rbenv,ruby-buildの設置
 
 rbenvはRubyバージョンを管理するツールとして良く使われています。
 
