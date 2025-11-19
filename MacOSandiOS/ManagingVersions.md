@@ -212,6 +212,7 @@ rbenv、ruby-version設置の流れ
 **1. rbenv,ruby-versionを設置する（ターミナルにコマンド入力で実施）**
 
 Homebrewを活用してrbenv、ruby-buildを設置します。
+
 下のコマンドをターミナルに貼り付けてEnterを押してください。
 
 ```zsh
