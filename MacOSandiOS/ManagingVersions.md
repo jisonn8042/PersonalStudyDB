@@ -306,9 +306,13 @@ rbenv -v
 ```
 
 </br>
+</br>
+</br>
 
 ---
 
+</br>
+</br>
 </br>
 
 ### 2.1. Rubyの設置（特定バージョンを使う場合）
@@ -462,6 +466,12 @@ gem install bundler -v [あなたが設置したいバージョン]
 //設置されているbundlerバージョンを見せます。
 gem list bundler
 ```
+
+</br>
+</br>
+</br>
+
+---
 
 </br>
 </br>
