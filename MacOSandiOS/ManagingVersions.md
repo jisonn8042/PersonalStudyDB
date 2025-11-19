@@ -177,6 +177,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 </br>
 </br>
+</br>
 
 ### 2. rbenv,ruby-buildの設置
 
@@ -271,6 +272,7 @@ rbenv -v
 
 </br>
 </br>
+</br>
 
 ### 2.1. Rubyの設置（特定バージョンを使う場合）
 
@@ -324,6 +326,7 @@ rbenv install [あなたが設置したいバージョン]
 rbenv versions
 ```
 
+</br>
 </br>
 </br>
 
