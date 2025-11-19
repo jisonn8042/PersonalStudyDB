@@ -196,9 +196,13 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
 </br>
+</br>
+</br>
 
 ---
 
+</br>
+</br>
 </br>
 
 ### 2. rbenv,ruby-buildの設置
