@@ -20,23 +20,23 @@
 
 1. Ruby言語バージョン
 
-2. Rubyツール別のバージョン（cocoapods）
+2. Rubyツール別のバージョン（cocoapods, bundler）
 
 3. iOSライブラリバージョン
 
-4. README.mdファイル作成（OSバージョンなど他の要素を作成）
+4. xcodeバージョン
 
-5. xcodeバージョン
+5. システムツール設置管理
 
-6. OSバージョン
-
-7. システムツール設置管理
+6. テスト環境SettingでのExcluded Architecture項目
 
 </br>
 
 **選択事項**
 
-1. xcodeprojファイル管理（また、知識が足りないためこの内容に関しては今後作成予定）
+1. OSバージョン
+
+2. xcodeprojファイル管理（また、知識が足りないためこの内容に関しては今後作成予定）
 
 </br>
 </br>
