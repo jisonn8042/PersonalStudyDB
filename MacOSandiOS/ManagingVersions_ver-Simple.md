@@ -20,9 +20,9 @@
 
 ## 管理項目
 
-### 1. システムツール (Homebrew)
+**1. システムツール (Homebrew)**
 
-    - git, swiftlint, carthage などのCLIツール
+git, swiftlint, carthage などのCLIツール
 
 ### 2. 言語ランタイム (Ruby)
 
