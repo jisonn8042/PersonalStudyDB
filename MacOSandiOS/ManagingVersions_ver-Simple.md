@@ -20,11 +20,11 @@
 
 ## 管理項目
 
-1. システムツール (Homebrew)
+### 1. システムツール (Homebrew)
 
-- git, swiftlint, carthage などのCLIツール
+    - git, swiftlint, carthage などのCLIツール
 
-2. 言語ランタイム (Ruby)
+### 2. 言語ランタイム (Ruby)
 
     - macOS標準のRubyを使わず、rbenv等で管理されたRubyを使う
 
