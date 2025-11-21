@@ -77,7 +77,50 @@
 </br>
 </br>
 
-## Ⅰ. バージョンを作成するために必要なこと
+## Ⅰ. 前提ツールの導入
+
+バージョン管理を行うための土台を作ります。
+
+1. Homebrewの設置
+
+MacOSのパッケージ管理ツールです。
+
+```zsh
+# Homebrewを設置するコマンドです。
+# ターミナルに貼り付けてください。
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+
+2. rbenv / ruby-buildの設置
+
+Rubyのバージョンを切り替えるためのツールです。Homebrew経由でインストールします。
+
+```zsh
+# rbenv, ruby-buildを設置するコマンドです。
+# ターミナルに貼り付けてください。
+brew install rbenv ruby-build
+```
+
+```zsh
+# 設置したrbenv現在のターミナルに適用するコマンドです。
+# ターミナルに1行づつ貼り付けてください。
+echo 'eval "$(rbenv init -zsh)"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+</br>
+</br>
+</br>
+
+## Ⅱ. 環境定義（設定ファイルの作成）
+
+ここが最も重要なパートです。プロジェクトのルートディレクトリに以下のファイルを作成します。
+
+</br>
+</br>
+</br>
+</br></br></br></br></br>
 
 ### 1. Homebrewの設置
 
@@ -226,45 +269,13 @@ Homebrewを活用してrbenv、ruby-buildを設置します。
 brew install rbenv ruby-build
 ```
 
-</br>
-</br>
-</br>
 
-**2. ~/.zshrc ファイルにrbenv設定技術する（ターミナルにコマンド入力で実施）**
-
-rbenvは色んな違うバージョンのRubyを正しいバージョンで実行するよう管理してくれるツールで、
-
-rbenvを活用するにはターミナルが実行される度にある設定をする必要があります。
-
-~/.zshrcに設定（eval "$(rbenv init - zsh)"）を追加することで、
-
-毎回ターミナルが実行すると設定をするようにできます。
-
-（詳しいrbenvの仕組みについては他のポストで説明します。（Mechanismofrbenv））
-
-下のコマンドをターミナルに貼り付けてEnterを押してください。
-
-```zsh
-// ~/.zshrcファイルにeval "$(rbenv init -zsh)"を作成します。
-echo 'eval "$(rbenv init -zsh)"' >> ~/.zshrc
-```
 
 </br>
 </br>
 </br>
 
-**3. 2で技術した設定を現在のターミナルに適用（ターミナルにコマンド入力で実施）**
 
-上でターミナルが実行される度にある設定をするようにしたのですが、
-
-現在のターミナルにはその設定が実行されていないのでコマンドで直接入力する必要があります。
-
-下のコマンドをターミナルに貼り付けてEnterを押してください。
-
-```zsh
-//　~/.zshrcを実行するコマンド
-source ~/.zshrc
-```
 
 </br>
 </br>
