@@ -22,22 +22,22 @@
 
 **1. システムツール (Homebrew)**
 
-git, swiftlint, carthage などのCLIツール
+- git, swiftlint, carthage などのCLIツール
 
-### 2. 言語ランタイム (Ruby)
+**2. 言語ランタイム (Ruby)**
 
-    - macOS標準のRubyを使わず、rbenv等で管理されたRubyを使う
+- macOS標準のRubyを使わず、rbenv等で管理されたRubyを使う
 
-3. Ruby製ツール (Gem)
+**3. Ruby製ツール (Gem)**
     - CocoaPods, Budler, ActiveSupport 等
 
-4. iOSライブラリ (Pods)
+**4. iOSライブラリ (Pods)**
     - Alamofire, RxSwift など
 
-5. IDE & OS (Xcode / macOS)
+**5. IDE & OS (Xcode / macOS)**
     - .xcode-version やドキュメントでの明示
 
-6. テスト環境SettingでのExcluded Architecture項目
+**6. テスト環境SettingでのExcluded Architecture項目**
 
 </br>
 
