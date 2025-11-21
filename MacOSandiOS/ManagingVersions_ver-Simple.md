@@ -81,7 +81,7 @@
 
 バージョン管理を行うための土台を作ります。
 
-1. Homebrewの設置
+**1. Homebrewの設置**
 
 MacOSのパッケージ管理ツールです。
 
@@ -91,8 +91,11 @@ MacOSのパッケージ管理ツールです。
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+</br>
+</br>
+</br>
 
-2. rbenv / ruby-buildの設置
+**2. rbenv / ruby-buildの設置**
 
 Rubyのバージョンを切り替えるためのツールです。Homebrew経由でインストールします。
 
@@ -101,6 +104,10 @@ Rubyのバージョンを切り替えるためのツールです。Homebrew経�
 # ターミナルに貼り付けてください。
 brew install rbenv ruby-build
 ```
+
+</br>
+
+設置したrbenv現在のターミナルに適用します。
 
 ```zsh
 # 設置したrbenv現在のターミナルに適用するコマンドです。
