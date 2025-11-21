@@ -20,30 +20,30 @@
 
 ## 管理項目
 
-**1. システムツール (Homebrew)**
+**Ⅰ. システムツール (Homebrew)**
 
 - git, swiftlint, carthage などのCLIツール
 
-**2. 言語ランタイム (Ruby)**
+**Ⅱ. 言語ランタイム (Ruby)**
 
 - macOS標準のRubyを使わず、rbenv等で管理されたRubyを使う
 
-**3. Ruby製ツール (Gem)**
-    - CocoaPods, Budler, ActiveSupport 等
+**Ⅲ. Ruby製ツール (Gem)**
+- CocoaPods, Budler, ActiveSupport 等
 
-**4. iOSライブラリ (Pods)**
-    - Alamofire, RxSwift など
+**Ⅳ. iOSライブラリ (Pods)**
+- Alamofire, RxSwift など
 
-**5. IDE & OS (Xcode / macOS)**
-    - .xcode-version やドキュメントでの明示
+**Ⅴ. IDE & OS (Xcode / macOS)**
+- .xcode-version やドキュメントでの明示
 
-**6. テスト環境SettingでのExcluded Architecture項目**
+**Ⅵ. テスト環境SettingでのExcluded Architecture項目**
 
 </br>
 
 **選択事項**
 
-1. xcodeprojファイル管理（また、知識が足りないためこの内容に関しては今後作成予定）
+Ⅰ. xcodeprojファイル管理（また、知識が足りないためこの内容に関しては今後作成予定）
 
 </br>
 </br>
@@ -53,58 +53,17 @@
 
 環境構築は以下の3ステップで進めます。
 
-Ⅰ. 前提ツールの導入
-ベースとなるバージョン管理ツールをMacにインストールします。
+**Ⅰ. 前提ツールの導入**
 
-Ⅱ. 環境定義（設定ファイルの作成）
-プロジェクトに必要なバージョンを記述したファイルを作成します。
+- ベースとなるバージョン管理ツールをMacにインストールします。
 
-Ⅲ. セットアップ（インストール実行）
-定義されたバージョンに従って、実際にツールをインストールします。
+**Ⅱ. 環境定義（設定ファイルの作成）**
 
+- プロジェクトに必要なバージョンを記述したファイルを作成します。
 
+**Ⅲ. セットアップ（インストール実行）**
 
-</br>
-</br>
-</br>
-
-**Ⅱ. バージョン作成**
-
-1. .ruby-versionファイル作成
-
-    1.1. Rubyの設置（特定バージョンを使う場合行う）
-
-2. GemfileやGemfile.lockファイル作成
-
-    2.1. bundlerの設置（基本的にRubyを設置するとそのバージョンに合うBundlerが設置される、特定バージョンを使う場合行う）
-
-    2.2. cocoapodsの設置
-
-    2.3. cocoapodsの設置（特定バージョンを使う場合行う）
-
-3. PodfileやPodfile.lockファイル作成
-
-4. .xcode-versionファイル作成
-
-5. README.md作成
-
-6. Brewfile作成
-
-</br>
-</br>
-</br>
-
-**Ⅲ. バージョンセットアップ**
-
-1. brew bundle install
-
-2. rbenv install [version] (ruby-versionファイルを確認し同じバージョンを設置)
-
-3. bundle install（特定されているRubyツールを設置（cocoapodsなど））
-
-4. bundle exec pod intall（特定されているcocoapodsバージョンでiOSライブラリ設置）
-
-5. .xcode-version, README.mdファイル参考（他に気にすべき項目があるか確認）
+- 定義されたバージョンに従って、実際にツールをインストールします。
 
 </br>
 </br>
