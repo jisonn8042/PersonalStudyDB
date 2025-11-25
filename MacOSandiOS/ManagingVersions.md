@@ -336,6 +336,10 @@ rbenv -v
 
 ### 1. Ruby言語バージョン作成（.ruby-versionファイル作成）
 
+</br>
+</br>
+</br>
+
 #### 1.1. .ruby-versionファイル作成
 
 .ruby-versionファイルを作成しその中にRubyのバージョン番号を書きます。
