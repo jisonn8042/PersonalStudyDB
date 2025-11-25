@@ -12,14 +12,13 @@
 </br>
 </br>
 
+
 ## 管理項目
 
 開発環境をチーム全員で統一するには、以下の要素をプロジェクト単位で固定（ロック）する必要があります。
 
 下の項目は開発環境を一致させるために管理が必要な項目です。
 
-</br>
-</br>
 </br>
 
 **Ⅰ. システムツール (Homebrew)**
@@ -56,8 +55,6 @@
 環境構築は以下の3ステップで進めます。
 
 </br>
-</br>
-</br>
 
 **Ⅰ. 前提ツールの導入**
 
@@ -80,8 +77,6 @@
 バージョン管理を行うための土台を作ります。
 
 </br>
-</br>
-</br>
 
 **1. Homebrewの設置**
 
@@ -93,8 +88,6 @@ MacOSのパッケージ管理ツールです。
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-</br>
-</br>
 </br>
 
 **2. rbenv / ruby-buildの設置**
@@ -127,16 +120,12 @@ source ~/.zshrc
 ここが最も重要なパートです。プロジェクトのルートディレクトリに以下のファイルを作成します。
 
 </br>
-</br>
-</br>
 
 1. Rubyバージョンの固定
 ファイル名: .ruby-version
 内容： 使用したいRubyのバージョン番号（例：3.1.4）のみ記述します。 
 目的：rbenvがこのファイルを読み取り、プロジェクト内で使うRubyを自動で切り替えます。
 
-</br>
-</br>
 </br>
 
 2. Gem(ライブラリ)の管理
@@ -146,15 +135,11 @@ source ~/.zshrc
 目的：bundlerがGemfileを読み取り、プロジェクト内で使うcocoapods、bundler等のバージョンを自動に切り替えます。
 
 </br>
-</br>
-</br>
 
 3. iOSライブラリの管理
 ファイル名：Podfile
 コマンド：```bundle exec pof init```で作成
 
-</br>
-</br>
 </br>
 
 4. システムツール管理
@@ -162,15 +147,11 @@ source ~/.zshrc
 コマンド：```brew bundle dump```で現在の環境を出力、または手動作成します。
 
 </br>
-</br>
-</br>
 
 5. Xcodeバージョンの明記
 ファイル名：.xcode-version
 内容：15.2のようにバージョンを記述します。
 
-</br>
-</br>
 </br>
 
 6. macOSバージョン、テスト環境SettingでのExcluded Architecture項目有無明記
