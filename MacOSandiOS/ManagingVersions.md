@@ -64,15 +64,25 @@
 
 2. Rubyツール別のバージョン作成（Gemfileファイル作成）
 
-    2.1. cocoapodsの設置
+    2.1. Gemfileファイル作成
+   
+    2.2. bundlerの設置（特定バージョンを使う場合）
 
-4. Podfileファイル作成
+    2.3. cocoapodsの設置（特定バージョンを使う場合）
 
-5. .xcode-versionファイル作成
+3. iOSライブラリバージョン作成（Podfileファイル作成）
 
-6. README.md作成
+    3.1. Podfileファイル作成
 
-7. Brewfile作成
+4. xcodeバージョン作成（.xcode-versionファイル作成）
+
+    4.1. .xcode-versionファイル作成
+
+5. システムツール設置管理(git, swiftlint等)（Brewfileファイル作成）
+
+    5.1. Brewfileファイルを作成
+
+6. テスト環境SettingでのExcluded Architecture項目作成（README.mdファイル作成）
 
 </br>
 </br>
@@ -80,7 +90,7 @@
 
 **Ⅲ. バージョンセットアップ**
 
-1. brew bundle install
+1. brew bundle install（システムツールセットアップ）
 
 2. rbenv install [version] (ruby-versionファイルを確認し同じバージョンを設置)
 
