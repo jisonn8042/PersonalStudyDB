@@ -20,13 +20,13 @@
 
 1. Ruby言語バージョン
 
-2. Rubyツール別のバージョン（cocoapods, bundler）
+2. Rubyツール別のバージョン（cocoapods, bundler, ActiveSupport等）
 
 3. iOSライブラリバージョン
 
 4. xcodeバージョン
 
-5. システムツール設置管理
+5. システムツール設置管理(git, swiftlint等)
 
 6. テスト環境SettingでのExcluded Architecture項目
 
@@ -56,25 +56,23 @@
 
 **Ⅱ. バージョン作成**
 
-1. .ruby-versionファイル作成
+1. Ruby言語バージョ作成（.ruby-versionファイル作成）
 
-    1.1. Rubyの設置（特定バージョンを使う場合行う）
+    1.1. .ruby-versionファイル作成
 
-2. GemfileやGemfile.lockファイル作成
+    1.2. Rubyの設置（特定バージョンを使う場合）
 
-    2.1. bundlerの設置（基本的にRubyを設置するとそのバージョンに合うBundlerが設置される、特定バージョンを使う場合行う）
+2. Rubyツール別のバージョン作成（Gemfileファイル作成）
 
-    2.2. cocoapodsの設置
+    2.1. cocoapodsの設置
 
-    2.3. cocoapodsの設置（特定バージョンを使う場合行う）
+4. Podfileファイル作成
 
-3. PodfileやPodfile.lockファイル作成
+5. .xcode-versionファイル作成
 
-4. .xcode-versionファイル作成
+6. README.md作成
 
-5. README.md作成
-
-6. Brewfile作成
+7. Brewfile作成
 
 </br>
 </br>
@@ -91,6 +89,12 @@
 4. bundle exec pod intall（特定されているcocoapodsバージョンでiOSライブラリ設置）
 
 5. .xcode-version, README.mdファイル参考（他に気にすべき項目があるか確認）
+
+</br>
+</br>
+</br>
+
+**Ⅳ. 【番外編】バージョン管理の判断基準**
 
 </br>
 </br>
