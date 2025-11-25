@@ -12,7 +12,6 @@
 </br>
 </br>
 
-
 ## 管理項目
 
 開発環境をチーム全員で統一するには、以下の要素をプロジェクト単位で固定（ロック）する必要があります。
@@ -122,41 +121,56 @@ source ~/.zshrc
 </br>
 
 1. Rubyバージョンの固定
-ファイル名: .ruby-version
-内容： 使用したいRubyのバージョン番号（例：3.1.4）のみ記述します。 
-目的：rbenvがこのファイルを読み取り、プロジェクト内で使うRubyを自動で切り替えます。
+
+- ファイル名: .ruby-version
+
+- 内容： 使用したいRubyのバージョン番号（例：3.1.4）のみ記述します。 
+
+- 目的：rbenvがこのファイルを読み取り、プロジェクト内で使うRubyを自動で切り替えます。
 
 </br>
 
 2. Gem(ライブラリ)の管理
-ファイル名：Gemfile
-コマンド：```bundle init```で作成します。
-内容：CocoaPods,Bundlerなどのバージョンを記述します。
-目的：bundlerがGemfileを読み取り、プロジェクト内で使うcocoapods、bundler等のバージョンを自動に切り替えます。
+
+- ファイル名：Gemfile
+
+- コマンド：```bundle init```で作成します。
+
+- 内容：CocoaPods,Bundlerなどのバージョンを記述します。
+
+- 目的：bundlerがGemfileを読み取り、プロジェクト内で使うcocoapods、bundler等のバージョンを自動に切り替えます。
 
 </br>
 
 3. iOSライブラリの管理
-ファイル名：Podfile
-コマンド：```bundle exec pof init```で作成
+
+- ファイル名：Podfile
+
+- コマンド：```bundle exec pof init```で作成
 
 </br>
 
 4. システムツール管理
-ファイル名：Brewfile
-コマンド：```brew bundle dump```で現在の環境を出力、または手動作成します。
+
+- ファイル名：Brewfile
+
+- コマンド：```brew bundle dump```で現在の環境を出力、または手動作成します。
 
 </br>
 
 5. Xcodeバージョンの明記
-ファイル名：.xcode-version
-内容：15.2のようにバージョンを記述します。
+
+- ファイル名：.xcode-version
+
+- 内容：15.2のようにバージョンを記述します。
 
 </br>
 
 6. macOSバージョン、テスト環境SettingでのExcluded Architecture項目有無明記
-ファイル名：README.md
-内容：
+
+- ファイル名：README.md
+
+- 内容：
 
 </br>
 </br>
