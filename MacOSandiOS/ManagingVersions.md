@@ -44,7 +44,7 @@
 
 目次です、以下の手順に説明します。
 
-**Ⅰ. バージョンを作成するために必要なこと**
+**Ⅰ. 前提ツールの導入**
 
 1. Homebrewの設置
 
@@ -56,13 +56,15 @@
 
 **Ⅱ. バージョン作成**
 
-1. Ruby言語バージョ作成（.ruby-versionファイル作成）
+1. Ruby言語バージョン作成（.ruby-versionファイル作成）
 
     1.1. .ruby-versionファイル作成
+        - rbenvのコマンドを利用した作成
+        - 手打ち作成
 
     1.2. Rubyの設置（特定バージョンを使う場合）
 
-2. Rubyツール別のバージョン作成（Gemfileファイル作成）
+3. Rubyツール別のバージョン作成（Gemfileファイル作成）
 
     2.1. Gemfileファイル作成
    
@@ -70,19 +72,19 @@
 
     2.3. cocoapodsの設置（特定バージョンを使う場合）
 
-3. iOSライブラリバージョン作成（Podfileファイル作成）
+4. iOSライブラリバージョン作成（Podfileファイル作成）
 
     3.1. Podfileファイル作成
 
-4. xcodeバージョン作成（.xcode-versionファイル作成）
+5. xcodeバージョン作成（.xcode-versionファイル作成）
 
     4.1. .xcode-versionファイル作成
 
-5. システムツール設置管理(git, swiftlint等)（Brewfileファイル作成）
+6. システムツール設置管理(git, swiftlint等)（Brewfileファイル作成）
 
     5.1. Brewfileファイル作成
 
-6. テスト環境SettingでのExcluded Architecture項目作成（README.mdファイル作成）
+7. テスト環境SettingでのExcluded Architecture項目作成（README.mdファイル作成）
 
     6.1. README .mdファイル作成
 
@@ -98,9 +100,11 @@
 
 2. Rubyツールを設置（cocoapodsなど）（bundle install）
 
-3. 特定されているcocoapodsバージョンでiOSライブラリ設置（bundle exec pod intall）
+    2.1. bundlerの設置（指定されているRubyバージョンに合うbundlerの設置が必要な場合）
 
-4. 他に気にすべき項目があるか確認(.xcode-version, README.mdファイル参考)
+4. 特定されているcocoapodsバージョンでiOSライブラリ設置（bundle exec pod intall）
+
+5. 他に気にすべき項目があるか確認(.xcode-version, README.mdファイル参考)
 
 </br>
 </br>
@@ -112,7 +116,13 @@
 </br>
 </br>
 
-## Ⅰ. バージョンを作成するために必要なこと
+---
+
+</br>
+</br>
+</br>
+
+## Ⅰ. 前提ツールの導入
 
 ### 1. Homebrewの設置
 
@@ -288,7 +298,7 @@ echo 'eval "$(rbenv init -zsh)"' >> ~/.zshrc
 </br>
 </br>
 
-**3. 2で技術した設定を現在のターミナルに適用（ターミナルにコマンド入力で実施）**
+**3. 2で記述した設定を現在のターミナルに適用（ターミナルにコマンド入力で実施）**
 
 上でターミナルが実行される度にある設定をするようにしたのですが、
 
@@ -325,6 +335,52 @@ rbenv -v
 </br>
 </br>
 </br>
+
+## Ⅱ. バージョン作成
+
+### 1. Ruby言語バージョン作成（.ruby-versionファイル作成）
+
+#### 1.1. .ruby-versionファイル作成
+
+.ruby-versionファイルを作成しその中にRubyのバージョン番号を書きます。
+
+**作成方法**
+
+.ruby-version作成の流れ
+
+1. .ruby-versionファイル生成
+
+2. 内容作成
+
+</br>
+</br>
+</br>
+
+**1. .ruby-versionファイル作成**
+
+.ruby-versionファイルを作成する
+
+下のコマンドをターミナルに貼り付けてEnterを押してください。
+
+```zsh
+# 名前がruby-versionの隠しファイルを生成します。
+touch .ruby-version
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 2.1. Rubyの設置（特定バージョンを使う場合）
 
