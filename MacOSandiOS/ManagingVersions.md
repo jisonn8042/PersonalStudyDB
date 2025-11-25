@@ -80,9 +80,11 @@
 
 5. システムツール設置管理(git, swiftlint等)（Brewfileファイル作成）
 
-    5.1. Brewfileファイルを作成
+    5.1. Brewfileファイル作成
 
 6. テスト環境SettingでのExcluded Architecture項目作成（README.mdファイル作成）
+
+    6.1. README .mdファイル作成
 
 </br>
 </br>
@@ -90,15 +92,15 @@
 
 **Ⅲ. バージョンセットアップ**
 
-1. brew bundle install（システムツールセットアップ）
+1. システムツールセットアップ（brew bundle install）
 
-    1.1. rbenv install [version] (ruby-versionファイルを確認し同じバージョンを設置)
+    1.1. Rubyバージョンが設置されていない場合（rbenv install [version]） 
 
-2. bundle install（特定されているRubyツールを設置（cocoapodsなど））
+2. Rubyツールを設置（cocoapodsなど）（bundle install）
 
-3. bundle exec pod intall（特定されているcocoapodsバージョンでiOSライブラリ設置）
+3. 特定されているcocoapodsバージョンでiOSライブラリ設置（bundle exec pod intall）
 
-4. .xcode-version, README.mdファイル参考（他に気にすべき項目があるか確認）
+4. 他に気にすべき項目があるか確認(.xcode-version, README.mdファイル参考)
 
 </br>
 </br>
