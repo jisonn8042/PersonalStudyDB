@@ -92,27 +92,19 @@
 
 1. brew bundle install（システムツールセットアップ）
 
-2. rbenv install [version] (ruby-versionファイルを確認し同じバージョンを設置)
+    1.1. rbenv install [version] (ruby-versionファイルを確認し同じバージョンを設置)
 
-3. bundle install（特定されているRubyツールを設置（cocoapodsなど））
+2. bundle install（特定されているRubyツールを設置（cocoapodsなど））
 
-4. bundle exec pod intall（特定されているcocoapodsバージョンでiOSライブラリ設置）
+3. bundle exec pod intall（特定されているcocoapodsバージョンでiOSライブラリ設置）
 
-5. .xcode-version, README.mdファイル参考（他に気にすべき項目があるか確認）
+4. .xcode-version, README.mdファイル参考（他に気にすべき項目があるか確認）
 
 </br>
 </br>
 </br>
 
 **Ⅳ. 【番外編】バージョン管理の判断基準**
-
-</br>
-</br>
-</br>
-
-### ⚠️Ⅱ,Ⅲの工程はプロジェクト経路上で行ってください。
-#### example@exampleMacBook-Air [プロジェクトフォルダ名]　%
-#### 例）プロジェクトフォルダの名前がtestの場合 -> example@exampleMacBook-Air test %
 
 </br>
 </br>
