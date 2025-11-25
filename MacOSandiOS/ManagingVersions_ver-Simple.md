@@ -125,8 +125,10 @@ source ~/.zshrc
 **1. Rubyバージョンの固定**
 
 ファイル名
-    
-    - .ruby-version
+
+```
+.ruby-version
+```
 
 内容
 
@@ -137,7 +139,7 @@ source ~/.zshrc
 .ruby-versionファイルを方法は２つがあります。
 
     - .ruby-versionファイルを作成し特定バージョンを手打ち作成
-```txt
+```
 #例）3.1.4を指定してファイル作成
 3.1.4
 ```
