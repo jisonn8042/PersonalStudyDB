@@ -79,7 +79,7 @@
 
 </br>
 
-**1. Homebrewの設置**
+**ⅰ. Homebrewの設置**
 
 MacOSのパッケージ管理ツールです。
 
@@ -91,7 +91,7 @@ MacOSのパッケージ管理ツールです。
 
 </br>
 
-**2. rbenv / ruby-buildの設置**
+**ⅱ. rbenv / ruby-buildの設置**
 
 Rubyのバージョンを切り替えるためのツールです。Homebrew経由でインストールします。
 
@@ -122,7 +122,9 @@ source ~/.zshrc
 
 </br>
 
-### 1. Rubyバージョンの固定
+### ⅰ. Rubyバージョンの固定
+
+</br>
 
 **ファイル名**
 
@@ -130,9 +132,13 @@ source ~/.zshrc
 .ruby-version
 ```
 
-**内容**
+</br>
 
-- 使用しているRubyのバージョン番号
+**ファイル内容**
+
+使用しているRubyのバージョン番号
+
+</br>
 
 **作成方法**
 
@@ -153,19 +159,39 @@ rbenv local 3.1.4
 
 </br>
 
-2. Gem(ライブラリ)の管理
+### 2. Gem(ライブラリ)の管理
 
-- ファイル名：Gemfile
+**ファイル名**
 
-- コマンド：```bundle init```で作成します。
-
-- 内容：CocoaPods,Bundlerなどのバージョンを記述します。
-
-- 目的：bundlerがGemfileを読み取り、プロジェクト内で使うcocoapods、bundler等のバージョンを自動に切り替えます。
+```
+Gemfile
+```
 
 </br>
 
-3. iOSライブラリの管理
+**ファイル内容**
+
+- CocoaPods,Bundlerなどのバージョンを記述します。
+
+**作成方法**
+
+- ターミナルに```bundle init```を入力します。
+
+- プロジェクトフォルダに作成されたGemfileを開き下の内容を作成します。
+
+```
+source "https://rubygems.org"
+
+# バージョンを厳格に指定
+# 作成形式 gem "[Gemツール]", "[バージョン番号]"
+
+gem "cocoapods", "1.14.3"
+gem "fastlane", "2.219.0"
+```
+
+</br>
+
+ⅲ. iOSライブラリの管理
 
 - ファイル名：Podfile
 
