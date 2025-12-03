@@ -9,7 +9,7 @@
 
 <hr>
 
-<h3><a href="#SSH設定">Ⅰ. SSH設定</a></h3>
+<h3><a href="#SSH設定-1つのGitHubアカウントを連携する場合">Ⅰ. SSH設定-1つのGitHubアカウントを連携する場合</a></h3>
 
 <ol>
     <li><a href="#キー作成">SSHキー生成</a></li>
@@ -21,7 +21,19 @@
     <li><a href="#注意点">注意点</a></li>
 </ol>
 
-<h3><a href="#その他">Ⅱ. その他</a></h3>
+<h3><a href="#SSH設定-複数のGitHubアカウントを連携する場合">Ⅱ. SSH設定-複数のGitHubアカウントを連携する場合</a></h3>
+
+<ol>
+    <li><a href="#キー作成">SSHキー生成</a></li>
+    <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
+    <li><a href="#~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
+    <li><a href="#GitHubにSSHキーを登録">GitHubにSSHキーを登録</a></li>
+    <li><a href="#git_cloneで設定確認">git cloneで設定確認</a></li>
+    <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
+    <li><a href="#注意点">注意点</a></li>
+</ol>
+
+<h3><a href="#その他">Ⅲ. その他</a></h3>
 
 <ul>
     <li><a href="#SSHとは">SSHとは</a></li>
@@ -148,6 +160,10 @@ cat ~/.ssh/personal_github.pub | pbcopy
 
 <p>git cloneで設定を確認します。</p>
 
+<p>원래 주소: git@github.com:MyName/MyRepo.git</p>
+
+<p>바꿀 주소: git@github-personal:MyName/MyRepo.git</p>
+
 <pre><code>#git cloneで設定を確認
 git clone [リモートリポジトリURL]
 </code></pre>
@@ -170,11 +186,11 @@ git config --local user.name "[名前]"
 git config --local user.email "[メールアドレス]"
 
 #入力例
-git config --global user.name "Jisung Park"
-git config --global user.email "jisungpark8024@gmail.com"
+git config --global user.name "example"
+git config --global user.email "example@example.com"
 
-git config --local user.name "Jisung Park"
-git config --local user.email "jisungpark8024@gmail.com"
+git config --local user.name "example"
+git config --local user.email "example@example.com"
 
 </code></pre>
 
