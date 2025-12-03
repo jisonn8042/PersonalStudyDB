@@ -8,26 +8,151 @@
 
 <hr>
 
-<h3><a href="#ssh設定">Ⅰ. SSH設定</a></h3>
+<h3><a href="#SSH設定">Ⅰ. SSH設定</a></h3>
 
 <ol>
-    <li><a href="#キー作成">キー作成</a></li>
-    <li>IDE設定</li>
+    <li><a href="#キー作成">SSHキー生成</a></li>
+    <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
+    <li><a href="#GitHubにSSHキーを登録">GitHubにSSHキーを登録</a></li>
+    <li><a href="#~/.ssh/config設定">~/.ssh/config設定</a></li>
+    <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
+    <li><a href="#Git設定確認">Git設定確認</a></li>
+    <li><a href="#注意点">注意点</a></li>
 </ol>
 
 <h3><a href="#その他">Ⅱ. その他</a></h3>
 
 <ul>
-    <li><a href="#sshとは">SSHとは</a></li>
+    <li><a href="#SSHとは">SSHとは</a></li>
+    <li><a href="#キーチェインとは">キーチェインとは</a></li>
 </ul>
 
 <br>
 
-<h2 id="ssh設定">Ⅰ. SSH設定</h2>
+<h2 id="SSH設定">Ⅰ. SSH設定</h2>
 
 <hr>
 
-<h3 id="キー作成">1. キー作成</h3>
+<h3 id="キー作成">1. SSHキー生成</h3>
+
+<p>GitHubと連携するためのSSHキーを生成します。</p>
+
+<pre><code>
+# -f を活用し任意の名前でキーを生成します。
+ssh-keygen -t ed25519 -C "[GitHub用メールアドレス]" -f ~/.ssh/[任意の名前]
+
+#入力例
+ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/personal_github
+</code></pre>
+
+<br>
+
+<h3 id="キーチェイン設定">2. キーチェイン設定</h3>
+
+<p>macを再起動してもパスワードを毎回入力するのを防ぐためにキーチェインに登録します。</p>
+
+<pre><code>
+#キーチェインに登録
+ssh-add --apple-use-keychain ~/.ssh/[任意の名前]
+
+#入力例
+ssh-add --apple-use-keychain ~/.ssh/personal_github
+</code></pre>
+
+<br>
+
+<h3 id="GitHubにSSHキーを登録">3. GitHubにSSHキーを登録</h3>
+
+<p>GitHubにSSHキーを登録します。</p>
+
+<pre><code>
+#GitHubにSSHキーを登録
+cat ~/.ssh/[任意の名前].pub | pbcopy
+
+#入力例
+cat ~/.ssh/personal_github.pub | pbcopy
+</code></pre>
+
+<br>
+
+<h3 id="~/.ssh/config設定">4. ~/.ssh/config設定</h3>
+
+<p>~/.ssh/configファイルを設定します。</p>
+
+<pre><code>
+    # ----------------------------
+# 1. 회사 계정 (기본값으로 설정하는 경우가 많음)
+# ----------------------------
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_work  # 회사에서 발급받거나 생성한 업무용 키
+    UseKeychain yes
+    AddKeysToAgent yes
+
+# ----------------------------
+# 2. 개인 계정 (Alias 사용)
+# ----------------------------
+Host github-personal             # <-- 여기가 중요! 호출할 별칭
+    HostName github.com          # 실제 주소는 여전히 github.com
+    User git
+    IdentityFile ~/.ssh/id_personal_github  # 아까 만든 개인용 키
+    IdentitiesOnly yes           # <-- 배운대로! 에이전트 간섭 차단
+    UseKeychain yes
+    AddKeysToAgent yes
+</code></pre>
+
+<br>
+
+<pre><code>
+    #~/.ssh/configファイルを設定
+Host github-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/[任意の名前]
+
+#入力例
+Host github-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/personal_github
+</code></pre>
+
+<br>
+
+<h3 id="ローカルGit設定">5. ローカルGit設定</h3>
+
+<p>ローカルGit設定を行います。</p>
+
+<p><strong>設定</strong></p>
+
+<pre><code>
+    #ローカルGit設定
+    git config --global user.name "[名前]"
+    git config --global user.email "[メールアドレス]"
+
+    #入力例
+    git config --global user.name "Jisung Park"
+    git config --global user.email "jisungpark8024@gmail.com"
+</code></pre>
+
+<br>
+
+<p><strong>確認</strong></p>
+
+<pre><code>
+    #Git設定確認
+    git config --global user.name
+    git config --global user.email
+</code></pre>
+
+<br>
+
+<h3 id="Git設定確認">6. Git設定確認</h3>
+
+<p>Git設定を確認します。</p>
+
+
 
 <br>
 
@@ -35,7 +160,7 @@
 
 <hr>
 
-<h3 id="sshとは">SSHとは</h3>
+<h3 id="SSHとは">SSHとは</h3>
 
 <br>
 
