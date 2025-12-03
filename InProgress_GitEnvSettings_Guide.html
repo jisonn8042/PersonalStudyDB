@@ -14,10 +14,10 @@
 <ol>
     <li><a href="#キー作成">SSHキー生成</a></li>
     <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
-    <li><a href="#GitHubにSSHキーを登録">GitHubにSSHキーを登録</a></li>
     <li><a href="#~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
-    <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
+    <li><a href="#GitHubにSSHキーを登録">GitHubにSSHキーを登録</a></li>
     <li><a href="#Git設定確認">Git設定確認</a></li>
+    <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
     <li><a href="#注意点">注意点</a></li>
 </ol>
 
@@ -61,6 +61,8 @@ ls -al ~/.ssh
 
 <p>macを再起動してもパスワードを毎回入力するのを防ぐためにキーチェインに登録します。</p>
 
+<p><strong>設定</strong></p>
+
 <pre><code>
 #キーチェインに登録
 ssh-add --apple-use-keychain ~/.ssh/[任意の名前]
@@ -70,32 +72,23 @@ ssh-add --apple-use-keychain ~/.ssh/personal_github
 </code></pre>
 
 <br>
-
-<h3 id="GitHubにSSHキーを登録">3. GitHubにSSHキーを登録</h3>
-
-<p>GitHubにSSHキーを登録します。</p>
-
-<pre><code>
-#GitHubにSSHキーを登録
-cat ~/.ssh/[任意の名前].pub | pbcopy
-
-#入力例
-cat ~/.ssh/personal_github.pub | pbcopy
-</code></pre>
-
 <br>
 
-<h3 id="~/.ssh/config生成・設定">4. ~/.ssh/config生成・設定</h3>
+<h3 id="~/.ssh/config生成・設定">3. ~/.ssh/config生成・設定</h3>
 
 <p>~/.ssh/configファイルを生成・設定します。</p>
 
-
+<p></p>
 
 <p><strong>設定</strong></p>
 
-<pre><code>
+<pre><code>#~/.sshにディレクトリ移動
+cd ~/.ssh</code></pre>
 
-#~/.ssh/configファイルを設定
+<pre><code>#~/.ssh/configファイルを生成
+touch config</code></pre>
+
+<pre><code>#~/.ssh/configファイルを設定
 Host github.com
     HostName github.com
     User git
@@ -126,22 +119,47 @@ Host github-personal             # 呼び出す別名
     AddKeysToAgent yes
 </code></pre>
 
+<h3 id="GitHubにSSHキーを登録">4. GitHubにSSHキーを登録</h3>
+
+<p>GitHubにSSHキーを登録します。</p>
+
+<pre><code>
+#GitHubにSSHキーを登録
+cat ~/.ssh/[任意の名前].pub | pbcopy
+
+#入力例
+cat ~/.ssh/personal_github.pub | pbcopy
+</code></pre>
+
+<br>
 <br>
 
-<h3 id="ローカルGit設定">5. ローカルGit設定</h3>
+<h3 id="Git設定確認">5. Git設定確認</h3>
+
+<p>Git設定を確認します。</p>
+
+<h3 id="ローカルGit設定">6. ローカルGit設定</h3>
 
 <p>ローカルGit設定を行います。</p>
 
 <p><strong>設定</strong></p>
 
 <pre><code>
-#ローカルGit設定
+#グローバルGit設定
 git config --global user.name "[名前]"
 git config --global user.email "[メールアドレス]"
+
+#ローカルGit設定
+git config --local user.name "[名前]"
+git config --local user.email "[メールアドレス]"
 
 #入力例
 git config --global user.name "Jisung Park"
 git config --global user.email "jisungpark8024@gmail.com"
+
+git config --local user.name "Jisung Park"
+git config --local user.email "jisungpark8024@gmail.com"
+
 </code></pre>
 
 <br>
@@ -155,12 +173,6 @@ git config --global user.email
 </code></pre>
 
 <br>
-
-<h3 id="Git設定確認">6. Git設定確認</h3>
-
-<p>Git設定を確認します。</p>
-
-
 
 <br>
 
