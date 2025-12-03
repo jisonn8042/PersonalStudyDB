@@ -14,7 +14,7 @@
     <li><a href="#キー作成">SSHキー生成</a></li>
     <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#GitHubにSSHキーを登録">GitHubにSSHキーを登録</a></li>
-    <li><a href="#~/.ssh/config設定">~/.ssh/config設定</a></li>
+    <li><a href="#~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
     <li><a href="#Git設定確認">Git設定確認</a></li>
     <li><a href="#注意点">注意点</a></li>
@@ -37,12 +37,25 @@
 
 <p>GitHubと連携するためのSSHキーを生成します。</p>
 
+<br>
+
+<p><strong>生成</strong></p>
+
 <pre><code>
 # -f を活用し任意の名前でキーを生成します。
 ssh-keygen -t ed25519 -C "[GitHub用メールアドレス]" -f ~/.ssh/[任意の名前]
 
 #入力例
 ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/personal_github
+</code></pre>
+
+<br>
+
+<p><strong>確認</strong></p>
+
+<pre><code>
+#コマンドを入力時任意の名前になっているファイルの有無を確認します。
+ls -al ~/.ssh
 </code></pre>
 
 <br>
@@ -75,13 +88,27 @@ cat ~/.ssh/personal_github.pub | pbcopy
 
 <br>
 
-<h3 id="~/.ssh/config設定">4. ~/.ssh/config設定</h3>
+<h3 id="~/.ssh/config生成・設定">4. ~/.ssh/config生成・設定</h3>
 
-<p>~/.ssh/configファイルを設定します。</p>
+<p>~/.ssh/configファイルを生成・設定します。</p>
+
+
+
+<p><strong>設定</strong></p>
 
 <pre><code>
+
+#~/.ssh/configファイルを設定
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_work  # 회사에서 발급받거나 생성한 업무용 키
+    UseKeychain yes
+    AddKeysToAgent yes
+
+#入力例
 # ----------------------------
-# 1. 회사 계정 (기본값으로 설정하는 경우가 많음)
+# 1. 会社用 アカウント (基本値として設定する場合が多い)
 # ----------------------------
 Host github.com
     HostName github.com
@@ -91,31 +118,15 @@ Host github.com
     AddKeysToAgent yes
 
 # ----------------------------
-# 2. 개인 계정 (Alias 사용)
+# 2. 個人用 アカウント (Alias(別名)を使用)
 # ----------------------------
-Host github-personal             # <-- 여기가 중요! 호출할 별칭
-    HostName github.com          # 실제 주소는 여전히 github.com
+Host github-personal             # 呼び出す別名
+    HostName github.com          
     User git
-    IdentityFile ~/.ssh/id_personal_github  # 아까 만든 개인용 키
-    IdentitiesOnly yes           # <-- 배운대로! 에이전트 간섭 차단
+    IdentityFile ~/.ssh/personal_github  #作った個人用SSHキー
+    IdentitiesOnly yes           # エージェントが他のキーを無視する
     UseKeychain yes
     AddKeysToAgent yes
-</code></pre>
-
-<br>
-
-<pre><code>
-#~/.ssh/configファイルを設定
-Host github-personal
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/[任意の名前]
-
-#入力例
-Host github-personal
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/personal_github
 </code></pre>
 
 <br>
