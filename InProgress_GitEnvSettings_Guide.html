@@ -4,8 +4,22 @@
 
 <h2>目次</h2>
 
-<h3>SSH設定</h3>
+<h3><a href="#ssh設定">Ⅰ. SSH設定</a></h3>
 
+<ol>
+    <li><a href="#キー作成">キー作成</a></li>
+    <li>IDE設定</li>
+</ol>
+
+<h3>Ⅱ.その他</h3>
+
+<ul>
+    <li>SSHとは</li>
+</ul>
+
+<h2 id="ssh設定">Ⅰ. SSH設定</h2>
+
+<h3 id="キー作成">Ⅰ-1. キー作成</h3>
 
 git --global user.name
 git --global user.email
@@ -192,5 +206,3 @@ ssh git @ github.com -i ~/.ssh/id_ed25519
 @ 뒷부분 (github-personal): 말씀하신 대로 **"우리가 설정 파일(config)에 정의한 Host의 이름(Alias)"**이 맞습니다.
 
 이제 구조가 완전히 눈에 들어오시죠? 이 원리만 알면 나중에 회사 계정, 개인 계정, 토이 프로젝트 계정 등 10개가 생겨도 config 파일에 Alias만 추가해서 완벽하게 관리할 수 있습니다!
-
-===================
