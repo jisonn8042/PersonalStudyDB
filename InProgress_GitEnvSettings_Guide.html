@@ -16,7 +16,7 @@
     <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#GitHubにSSHキーを登録">GitHubにSSHキーを登録</a></li>
-    <li><a href="#Git設定確認">Git設定確認</a></li>
+    <li><a href="#git_cloneで設定確認">git cloneで設定確認</a></li>
     <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
     <li><a href="#注意点">注意点</a></li>
 </ol>
@@ -85,8 +85,12 @@ ssh-add --apple-use-keychain ~/.ssh/personal_github
 <pre><code>#~/.sshにディレクトリ移動
 cd ~/.ssh</code></pre>
 
+<br>
+
 <pre><code>#~/.ssh/configファイルを生成
 touch config</code></pre>
+
+<br>
 
 <pre><code>#~/.ssh/configファイルを設定
 Host github.com
@@ -134,9 +138,14 @@ cat ~/.ssh/personal_github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="Git設定確認">5. Git設定確認</h3>
+<h3 id="git_cloneで設定確認">5. git cloneで設定確認</h3>
 
-<p>Git設定を確認します。</p>
+<p>git cloneで設定を確認します。</p>
+
+<pre><code>
+#git cloneで設定を確認
+git clone [リモートリポジトリURL]
+</code></pre>
 
 <h3 id="ローカルGit設定">6. ローカルGit設定</h3>
 
