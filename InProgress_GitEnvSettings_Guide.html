@@ -63,8 +63,7 @@ ls -al ~/.ssh
 
 <p><strong>設定</strong></p>
 
-<pre><code>
-#キーチェインに登録
+<pre><code>#キーチェインに登録
 ssh-add --apple-use-keychain ~/.ssh/[任意の名前]
 
 #入力例
@@ -127,8 +126,7 @@ Host github-personal             # 呼び出す別名
 
 <p>GitHubにSSHキーを登録します。</p>
 
-<pre><code>
-#GitHubにSSHキーを登録
+<pre><code>#GitHubにSSHキーを登録
 cat ~/.ssh/[任意の名前].pub | pbcopy
 
 #入力例
@@ -142,10 +140,12 @@ cat ~/.ssh/personal_github.pub | pbcopy
 
 <p>git cloneで設定を確認します。</p>
 
-<pre><code>
-#git cloneで設定を確認
+<pre><code>#git cloneで設定を確認
 git clone [リモートリポジトリURL]
 </code></pre>
+
+<br>
+<br>
 
 <h3 id="ローカルGit設定">6. ローカルGit設定</h3>
 
@@ -153,8 +153,7 @@ git clone [リモートリポジトリURL]
 
 <p><strong>設定</strong></p>
 
-<pre><code>
-#グローバルGit設定
+<pre><code>#グローバルGit設定
 git config --global user.name "[名前]"
 git config --global user.email "[メールアドレス]"
 
@@ -175,8 +174,7 @@ git config --local user.email "jisungpark8024@gmail.com"
 
 <p><strong>確認</strong></p>
 
-<pre><code>
-#Git設定確認
+<pre><code>#Git設定確認
 git config --global user.name
 git config --global user.email
 </code></pre>
