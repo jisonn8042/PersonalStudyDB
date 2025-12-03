@@ -77,21 +77,15 @@ ssh-add --apple-use-keychain ~/.ssh/personal_github
 
 <p>~/.ssh/configファイルを生成・設定します。</p>
 
-<p></p>
-
 <p><strong>設定</strong></p>
 
 <pre><code>#~/.sshにディレクトリ移動
-cd ~/.ssh</code></pre>
+cd ~/.ssh
 
-<br>
-
-<pre><code>#~/.ssh/configファイルを生成
-touch config</code></pre>
-
-<br>
-
-<pre><code>#~/.ssh/configファイルを設定
+#~/.ssh/configファイルを生成
+touch config
+    
+#~/.ssh/configファイルを設定
 Host github.com
     HostName github.com
     User git
