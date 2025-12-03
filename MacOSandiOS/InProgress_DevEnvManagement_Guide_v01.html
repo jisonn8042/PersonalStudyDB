@@ -1,38 +1,278 @@
 <h1>iOS開発環境管理ガイド</h1>
 
+<br>
+
 <h2>目次</h2>
 
-<h3>Ⅰ. 環境作成</h3>
+<hr>
+
+<h3><a href="#環境作成設定">Ⅰ. 環境作成/設定</a></h3>
 
 <ol>
-    <li>システムツール</li>
-    <li>Xcodeバージョン</li>
-    <li>Rubyバージョン</li>
-    <li>CocoaPodsバージョン</li>
-    <li>iOSライブラリ</li>
-    <li>macOSのバージョン</li>
+    <li><a href="#作成設定_システムツール">システムツール</a></li>
+    <li><a href="#作成設定_xcodeバージョン">Xcodeバージョン</a></li>
+    <li><a href="#作成設定_rubyバージョン">Rubyバージョン</a></li>
+    <li><a href="#作成設定_CocoaPodsバージョン">CocoaPodsバージョン</a></li>
+    <li><a href="#作成設定_iOSライブラリ">iOSライブラリ</a></li>
+    <li><a href="#作成設定_macOSのバージョン">macOSのバージョン</a></li>
 </ol>
 
-<h3>Ⅱ. 環境設定</h3>
+<h3><a href="#環境適用">Ⅱ. 環境適用</a></h3>
 
 <ol>
-    <li>システムツール</li>
-    <li>Xcodeバージョン</li>
-    <li>Rubyバージョン</li>
-    <li>CocoaPodsバージョン</li>
-    <li>iOSライブラリ</li>
-    <li>macOSのバージョン</li>
+    <li><a href="#適用_システムツール">システムツール</a></li>
+    <li><a href="#適用_Xcodeバージョン">Xcodeバージョン</a></li>
+    <li><a href="#適用_Rubyバージョン">Rubyバージョン</a></li>
+    <li><a href="#適用_CocoaPodsバージョン">CocoaPodsバージョン</a></li>
+    <li><a href="#適用_iOSライブラリ">iOSライブラリ</a></li>
+    <li><a href="#適用_macOSのバージョン">macOSのバージョン</a></li>
 </ol>
 
-<h3>Ⅲ. その他</h3>
+<h3><a href="#その他">Ⅲ. その他</a></h3>
 
 <ol>
-    <li>SwiftLint</li>
-    <li>Fastlane</li>
-    <li>ActiveSupport</li>
+    <li>注意事項</li>
+    <li><a href="#その他_GemfileとPodfile">GemfileとPodfile</a></li>
+    <li><a href="#その他_.lockファイル">.lockファイル</a></li>
+    <li><a href="#その他_SwiftLint">SwiftLint</a></li>
+    <li><a href="#その他_Fastlane">Fastlane</a></li>
+    <li><a href="#その他_ActiveSupport">ActiveSupport</a></li>
 </ol>
-</br>
 
-<h2>Ⅰ. 環境作成</h2>
+<br>
 
-<h3>1. システムツール</h3>
+<p><strong>このガイドはXcode、Homebrew、rbenv、ruby-build、rbenvでインストールしたプロジェクトで使用するバージョンのRuby、bundler、cocoapodsがインストールされていることを想定した上に作成されています。</strong>
+</p>
+<p><strong>もし、これらのツールがインストールされていない場合は、インストールしてから進んでください。</strong></p>
+
+<br>
+
+<h2 id="環境作成設定">Ⅰ. 環境作成/設定</h2>
+
+<hr>
+
+<p><strong>※全ての段階はプロジェクトのルートディレクトリで実行してください。</strong></p>
+
+<br>
+
+<h3 id="作成設定_システムツール">1. システムツール</h3>
+
+<p>Brewfileを使用して、プロジェクトに使われているシステムツールを管理することができます。</p>
+
+<p><strong>ファイル名</strong><br>Brewfile</p>
+
+<p><strong>作成内容</strong><br>使用しているシステムツール名</p>
+
+<p><strong>作成方法</strong><br><code>brew bundle dump</code>コマンドを実行することで、Brewfileが自動的に作成されます。<br>ファイルの中には使用している全てのシステムツール名が記述されているので、プロジェクトに必要なものだけを残して削除して下さい。
+</p>
+
+<p><strong>作成形式</strong><br>brew "[ツール名]"</p>
+
+<p><strong>作成例</strong></p>
+
+<pre>
+    <code>
+        brew "rbenv"
+        brew "ruby-build"
+    </code>
+</pre>
+
+<br>
+
+<h3 id="作成設定_xcodeバージョン">2. Xcodeバージョン</h3>
+
+<p>プロジェクトのルートディレクトリに.xcode-versionファイルを作成し、ファイルの中に使用するXcodeのバージョンを記述することで、Xcodeのバージョンを固定することができます。</p>
+
+<p><strong>ファイル名</strong><br>.xcode-version</p>
+
+<p><strong>作成内容</strong><br>使用するXcodeのバージョン</p>
+
+<p><strong>作成方法</strong><br>.xcode-versionと言う名のファイルを作成し、ファイルの中に使用するXcodeのバージョンを手打ちで入力して下さい。</p>
+
+<p><strong>作成形式</strong><br>[バージョン]</p>
+
+<em>※XcodeのバージョンはXcodeを開いて左上にあるXcodeをクリックしてAbout Xcodeから確認できます。</em>
+
+<p><strong>作成例</strong></p>
+
+<pre>
+    <code>
+        16.4 (16F6)
+    </code>
+</pre>
+
+<br>
+
+<h3 id="作成設定_rubyバージョン">3. Rubyバージョン</h3>
+
+<p>プロジェクトのルートディレクトリに.ruby-versionファイルを作成し、ファイルの中に使用するRubyのバージョンを記述することで、Rubyのバージョンを固定することができます。</p>
+
+<p><strong>ファイル名</strong><br>.ruby-version</p>
+
+<p><strong>作成内容</strong><br>使用するRubyのバージョン</p>
+
+<p><strong>作成方法</strong><br><code>rbenv versions</code>コマンドで使用しているバージョンを確認し、<code>rbenv local [バージョン]</code>コマンドを実行することで、.ruby-versionファイルが自動的に作成されます。
+</p>
+
+<p><strong>作成形式</strong><br>[バージョン]</p>
+
+<p><strong>作成例</strong></p>
+
+<pre>
+    <code>
+        3.3.2
+    </code>
+</pre>
+
+<p><strong>固定確認方法</strong><br><code>ruby -v</code>コマンドを実行した結果と.ruby-versionファイルの内容を確認して、作成内容が正常に適用されているか確認できます。</p>
+
+<br>
+
+<h3 id="作成設定_CocoaPodsバージョン">4. CocoaPodsバージョン</h3>
+
+<p>プロジェクトのルートディレクトリにGemfileを作成し、ファイルの中に使用するCocoaPodsのバージョンを記述することで、CocoaPodsのバージョンを固定することができます。</p>
+
+<p><strong>ファイル名</strong><br>Gemfile、Gemfile.lock</p>
+
+<p><strong>作成内容</strong><br>使用するCocoaPodsのバージョン</p>
+
+<p><strong>作成方法</strong><br><code>bundle init</code>コマンドを実行するとGemfileが自動的に作成されます。<br>そのGemfileの中に使用したいCocoaPodsのバージョンを手打ちで入力して下さい。<br><code>bundle install</code>コマンドを実行することでGemfile.lockが自動的に作成されます。
+</p>
+
+<p><strong>作成形式</strong><br>gem "cocoapods", "[バージョン]"</p>
+
+<p><strong>作成例</strong></p>
+
+<pre>
+    <code>
+        gem "cocoapods", "1.16.1"
+    </code>
+</pre>
+
+<p><strong>固定確認方法</strong><br><code>bundle exec pod --version</code>コマンドを実行した結果とPodfileの内に書いたcocoapodsのバージョンを確認して、作成内容が正常に適用されているか確認できます。
+</p>
+
+<br>
+
+<h3 id="作成設定_iOSライブラリ">5.iOSライブラリ</h3>
+
+<p>プロジェクトのルートディレクトリにPodfileを作成し、ファイルの中に使用するiOSライブラリのバージョンを記述することで、iOSライブラリのバージョンを固定することができます。</p>
+
+<p><strong>ファイル名</strong><br>Podfile、Podfile.lock</p>
+
+<p><strong>作成内容</strong><br>使用するiOSライブラリのバージョン</p>
+
+<p><strong>作成方法</strong><br><code>bundle exec pod init</code>コマンドを実行するとPodfileが自動的に作成されます。<br>そのPodfileの中に使用したいiOSライブラリ名とバージョンを手打ちで入力して下さい。<br><code>bundle exec pod install</code>コマンドを実行することでPodfile.lockが自動的に作成されます。
+</p>
+
+<p><strong>作成形式</strong><br>pod "[ライブラリ名]", "[バージョン]"</p>
+
+<p><strong>作成例</strong></p>
+
+<pre>
+    <code>
+        pod "Alamofire", "5.4.4"
+    </code>
+</pre>
+
+<br>
+
+<h3 id="作成設定_macOSのバージョン">6.macOSのバージョン</h3>
+
+<p>プロジェクト上で使われているmacOSのバージョンを記述するファイルを作成します。</p>
+
+<p>macOSのバージョンの場合特定バージョンを強制的に適用する必要はありません。<br>通常的に、最小要求事項として記述します。</p>
+
+<p><strong>ファイル名</strong><br>README.md</p>
+
+<p><strong>作成内容</strong><br>使用するmacOSのバージョン</p>
+
+<p><strong>作成方法</strong><br><code>sw_vers</code>コマンドを実行して、使用しているmacOSのバージョンを確認します。<br>その後、README.mdファイルを作成し、そのREADME.mdファイルの中に使用しているmacOSのバージョンを手打ちで入力して下さい。
+</p>
+
+<p><strong>作成形式</strong><br>[バージョン]</p>
+
+<p><strong>作成例</strong></p>
+
+<pre>
+    <code>
+        26.1
+    </code>
+</pre>
+
+<br>
+
+<h2 id="環境適用">Ⅱ. 環境適用</h2>
+
+<hr>
+
+<p><strong>※全ての段階はプロジェクトのルートディレクトリ（.xcodeprojがある場所）で実行してください。</strong></p>
+
+<br>
+
+<h3 id="適用_システムツール">1. システムツール</h3>
+
+<p><strong>適用方法</strong><br>Brewfileを確認し、必要なシステムツールをHomebrewを使ってインストールします。</p>
+
+<br>
+
+<h3 id="適用_Xcodeバージョン">2. Xcodeバージョン</h3>
+
+<p><strong>一致確認</strong><br>Xcodeを開いて左上にあるXcodeをクリックしてAbout Xcodeを押して確認した内容と、.xcode-versionファイルの内容が一致するか確認できます。</p>
+
+<p><strong>適用方法</strong><br>Xcodeバージョンの適用方法についてここでは説明していませんが、Xcodeのバージョンを管理してくれるシステムツールであるXcodesがあります。</p>
+
+<p><em>ファイルの最初に.がいるファイルは隠しファイルなので、Finder上に表示するにはShift + Command + .を押しと見えます。</em></p>
+
+<p><em>Xcodeのバージョンを複数インストールする場合は、他のバージョンと競合しないように注意してください。（Xcodeのバージョンを管理してくれるシステムツールであるXcodesの使用をお勧めします。）</em></p>
+
+<br>
+
+<h3 id="適用_Rubyバージョン">3. Rubyバージョン</h3>
+
+<p><strong>適用方法</strong><br>.ruby-versionファイルを確認し、必要なRubyバージョンをrbenvの <code>rbenv install [バージョン]</code>
+    コマンドを実行してインストールします。
+</p>
+
+<p><strong>適用確認</strong><br><code>ruby -v</code>コマンドを実行した結果と.ruby-versionファイルの内容が一致するか確認して、適用内容が正常に適用されているか確認できます。
+</p>
+
+<br>
+
+<h3 id="適用_CocoaPodsバージョン">4. CocoaPodsバージョン</h3>
+
+<p><strong>適用方法</strong><br><code>bundle install</code>コマンドを実行してインストールします。</p>
+
+<p><strong>適用確認</strong><br><code>bundle exec pod --version</code>コマンドを実行した結果とGemfileの内に書いているcocoapodsのバージョンが一致するか確認して、適用内容が正常に適用されているか確認できます。
+</p>
+
+<br>
+
+<h3 id="適用_iOSライブラリ">5. iOSライブラリ</h3>
+
+<p><strong>適用方法</strong><br><code>bundle exec pod install</code>コマンドを実行してインストールします。</p>
+
+<br>
+
+<h3 id="適用_macOSのバージョン">6. macOSのバージョン</h3>
+
+<p><strong>一致確認</strong><br><code>sw_vers</code>コマンドを実行した結果とREADME.mdファイルに書いているmacOSのバージョンが一致するか確認して、適用内容が正常に適用されているか確認できます。
+</p>
+
+<p><strong>適用方法</strong><br>macOSバージョンの適用方法について説明していません</p>
+
+<br>
+
+<h2 id="その他">Ⅲ. その他</h2>
+
+<hr>
+
+<h3 id="その他_GemfileとPodfile">1. GemfileとPodfile</h3>
+
+<p><strong>GemfileとPodfileとは</strong><br>それぞれRubyとiOSのライブラリのバージョンを固定するファイルです。</p>
+
+<p>GemfileとPodfileはライブラリのバージョンを</p>
+
+<br>
+
+<h3 id="その他_.lockファイル">2. .lockファイル</h3>
