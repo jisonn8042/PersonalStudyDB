@@ -15,7 +15,7 @@
     <li><a href="#キー作成">sshキー生成</a></li>
     <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#git_cloneで設定確認">git cloneで設定確認</a></li>
+    <li><a href="#コマンドで連携確認">コマンドで連携確認</a></li>
     <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
     <li><a href="#注意点">注意点</a></li>
 </ol>
@@ -27,7 +27,7 @@
     <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#git_cloneで設定確認">git cloneで設定確認</a></li>
+    <li><a href="#コマンドで連携確認">コマンドで連携確認</a></li>
     <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
     <li><a href="#注意点">注意点</a></li>
 </ol>
@@ -110,16 +110,16 @@ cat ~/.ssh/id_ed25519_personal_github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="git_cloneで設定確認">4. git cloneで設定確認</h3>
+<h3 id="コマンドで連携確認">4. コマンドで連携確認</h3>
 
-<p>git cloneで設定を確認します。</p>
+<p>実際pushは行なわないのですが、実行されるかどうかを確認できるgit push --dry-runコマンドを実行して連携確認を行います。</p>
 
-<p>원래 주소: git@github.com:MyName/MyRepo.git</p>
+<p>実行結果がErrorでは無い場合、設定が正しく行われていることを示します。</p>
 
-<p>바꿀 주소: git@github-personal:MyName/MyRepo.git</p>
+<p><strong>確認</strong></p>
 
-<pre><code>#git cloneで設定を確認
-git clone [リモートリポジトリURL]
+<pre><code>#git push --dry-run
+git push --dry-run
 </code></pre>
 
 <br>
@@ -292,16 +292,16 @@ cat ~/.ssh/personal_github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="git_cloneで設定確認">5. git cloneで設定確認</h3>
+<h3 id="コマンドで連携確認">5. コマンドで連携確認</h3>
 
-<p>git cloneで設定を確認します。</p>
+<p>実際pushは行なわないのですが、実行されるかどうかを確認できるgit push --dry-runコマンドを実行して連携確認を行います。</p>
 
-<p>원래 주소: git@github.com:MyName/MyRepo.git</p>
+<p>実行結果がErrorでは無い場合、設定が正しく行われていることを示します。</p>
 
-<p>바꿀 주소: git@github-personal:MyName/MyRepo.git</p>
+<p><strong>確認</strong></p>
 
-<pre><code>#git cloneで設定を確認
-git clone [リモートリポジトリURL]
+<pre><code>#git push --dry-run
+git push --dry-run
 </code></pre>
 
 <br>
