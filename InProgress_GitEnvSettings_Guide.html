@@ -215,18 +215,8 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519_different-github
 
 <p>~/.ssh/configファイルを生成・設定します。</p>
 
-<p><strong>IdentitiesOnly yesの設定観点</strong></p>
-
-<p>
-    IdentitiesOnly yesを正しくセットアップするには、ssh、ssh-agentについて理解する必要があります。
-    <br>ssh-agentは、sshキーを保管、管理するためのエージェントです。
-    <br>ssh接続時、sshキーで認証を行いますが、その時、どのsshキーを使用するかを決めるのがssh-agentで~/.ssh/configファイルを参照して決定します。
-    <br>通常は大丈夫ですが、GitHubはすべての接続をgitという単一のUser名で受け付けするようになってます。
-    <br>その為、同じUser名に対して異なるsshキーが必要な場合もあります。
-    <br>その時使える設定がIdentitiesOnly yesです。
-    <br>IdentitiesOnly yesの設定すると、ssh-agentが同じUser名になっている他のキーを無視します。
-    <br>これを設定することで、同じUser名に対して異なるsshキーを使用することができるようになります。
-    <br>例えば、これを特定なホストに設定すると、そのホストでssh接続時は指定したsshキーを使用するようになります。
+<p>複数のアカウントを連携している場合、たまにalias(別名)を設定しても同じUser名に対してどっちのキーを使うべきか分からない場合があります。
+    <br>その時、alias(別名)にIdentitiesOnly yesを作成して置くと、ssh通信の時、ssh住所のホスト部分がそのalias(別名)になっている場合、そのalias(別名)のキー以外のキーは無視されます。
 </p>
 
 <p><strong>設定</strong></p>
