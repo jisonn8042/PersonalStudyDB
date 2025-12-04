@@ -12,23 +12,22 @@
 <h3><a href="#ssh設定-1つのGitHubアカウントを連携する場合">Ⅰ. ssh設定-1つのGitHubアカウントを連携する場合</a></h3>
 
 <ol>
-    <li><a href="#キー作成">sshキー生成</a></li>
-    <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
-    <li><a href="#GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#コマンドで連携確認">コマンドで連携確認</a></li>
-    <li><a href="#注意点">注意点</a></li>
+    <li><a href="#Ⅰ-sshキー生成">sshキー生成</a></li>
+    <li><a href="#Ⅰ-キーチェイン設定">キーチェイン設定</a></li>
+    <li><a href="#Ⅰ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
+    <li><a href="#Ⅰ-コマンドで連携確認">コマンドで連携確認</a></li>
+    <li><a href="#Ⅰ-注意点">注意点</a></li>
 </ol>
 
 <h3><a href="#ssh設定-複数のGitHubアカウントを連携する場合">Ⅱ. ssh設定-複数のGitHubアカウントを連携する場合</a></h3>
 
 <ol>
-    <li><a href="#キー作成">sshキー生成</a></li>
-    <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
-    <li><a href="#~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
-    <li><a href="#GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#コマンドで連携確認">コマンドで連携確認</a></li>
-    <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
-    <li><a href="#注意点">注意点</a></li>
+    <li><a href="#Ⅱ-sshキー生成">sshキー生成</a></li>
+    <li><a href="#Ⅱ-キーチェイン設定">キーチェイン設定</a></li>
+    <li><a href="#Ⅱ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
+    <li><a href="#Ⅱ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
+    <li><a href="#Ⅱ-コマンドで連携確認">コマンドで連携確認</a></li>
+    <li><a href="#Ⅱ-注意点">注意点</a></li>
 </ol>
 
 <h3><a href="#その他">Ⅲ. その他</a></h3>
@@ -45,7 +44,7 @@
 
 <hr>
 
-<h3 id="キー作成">1. sshキー生成</h3>
+<h3 id="Ⅰ-sshキー生成">1. sshキー生成</h3>
 
 <p>GitHubと連携するためのsshキーを生成します。</p>
 
@@ -67,7 +66,7 @@ ls -al ~/.ssh
 <br>
 <br>
 
-<h3 id="キーチェイン設定">2. キーチェイン設定</h3>
+<h3 id="Ⅰ-キーチェイン設定">2. キーチェイン設定</h3>
 
 <p>macを再起動してもパスワードを毎回入力するのを防ぐためにキーチェインに登録します。</p>
 
@@ -83,7 +82,7 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal-github
 <br>
 <br>
 
-<h3 id="GitHubにsshキーを登録">3. GitHubにsshキーを登録</h3>
+<h3 id="Ⅰ-GitHubにsshキーを登録">3. GitHubにsshキーを登録</h3>
 
 <p>GitHubにsshキーを登録します。</p>
 
@@ -109,7 +108,7 @@ cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="コマンドで連携確認">4. コマンドで連携確認</h3>
+<h3 id="Ⅰ-コマンドで連携確認">4. コマンドで連携確認</h3>
 
 <p>
     実際pushは行なわないのですが、実行されるかどうかを確認できる <code>git push --dry-run</code> コマンドを実行して連携確認を行います。
@@ -123,7 +122,7 @@ cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="注意点">5. 注意点</h3>
+<h3 id="Ⅰ-注意点">5. 注意点</h3>
 
 <h4>ローカルGit設定</h4>
 
@@ -177,7 +176,7 @@ git config --local user.email
 
 <br>
 
-<h3 id="キー作成">1. sshキー生成</h3>
+<h3 id="Ⅱ-sshキー生成">1. sshキー生成</h3>
 
 <p>GitHubと連携するためのsshキーを生成します。</p>
 
@@ -199,7 +198,7 @@ ls -al ~/.ssh
 <br>
 <br>
 
-<h3 id="キーチェイン設定">2. キーチェイン設定</h3>
+<h3 id="Ⅱ-キーチェイン設定">2. キーチェイン設定</h3>
 
 <p>macを再起動してもパスワードを毎回入力するのを防ぐためにキーチェインに登録します。</p>
 
@@ -215,7 +214,7 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519_different-github
 <br>
 <br>
 
-<h3 id="~/.ssh/config生成・設定">3. ~/.ssh/config生成・設定</h3>
+<h3 id="Ⅱ-~/.ssh/config生成・設定">3. ~/.ssh/config生成・設定</h3>
 
 <p>
     ~/.ssh/configファイルを生成・設定します。
@@ -272,7 +271,7 @@ Host github-personal             # 呼び出す別名
 <br>
 <br>
 
-<h3 id="GitHubにsshキーを登録">4. GitHubにsshキーを登録</h3>
+<h3 id="Ⅱ-GitHubにsshキーを登録">4. GitHubにsshキーを登録</h3>
 
 <p>GitHubにsshキーを登録します。</p>
 
@@ -286,42 +285,38 @@ cat ~/.ssh/personal-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="コマンドで連携確認">5. コマンドで連携確認</h3>
+h3 id="コマンドで連携確認">5. コマンドで連携確認</h3>
 
-<p>実際pushは行なわないのですが、実行されるかどうかを確認できるgit push --dry-runコマンドを実行して連携確認を行います。</p>
-
-<p>実行結果がErrorでは無い場合、設定が正しく行われていることを示します。</p>
+<p>
+    実際pushは行なわないのですが、実行されるかどうかを確認できる <code>git push --dry-run</code> コマンドを実行して連携確認を行います。
+    <br>実行結果がErrorでは無い場合、設定が正しく行われていることを示します。
+</p>
 
 <p><strong>確認</strong></p>
 
-<pre><code>#git push --dry-run
-git push --dry-run
-</code></pre>
+<pre><code>git push --dry-run</code></pre>
 
 <br>
 <br>
 
-<h3 id="ローカルGit設定">6. ローカルGit設定</h3>
+<h3 id="Ⅱ-注意点">6. 注意点</h3>
 
-<p>ローカルGit設定を行います。</p>
+<h4>ローカルGit設定</h4>
+
+<p>
+    ローカルGit設定は、コミット履歴に正しい情報を表示するための設定を行います。
+    <br>設定はプロジェクトのルートディレクトリで行います。
+</p>
 
 <p><strong>設定</strong></p>
 
-<pre><code>#グローバルGit設定
-git config --global user.name "[名前]"
-git config --global user.email "[メールアドレス]"
-
-#ローカルGit設定
+<pre><code>#ローカルGit設定
 git config --local user.name "[名前]"
-git config --local user.email "[メールアドレス]"
+git config --local user.email "[GitHubメールアドレス]"
 
 #入力例
-git config --global user.name "example"
-git config --global user.email "example@example.com"
-
 git config --local user.name "example"
 git config --local user.email "example@example.com"
-
 </code></pre>
 
 <br>
@@ -329,12 +324,11 @@ git config --local user.email "example@example.com"
 <p><strong>確認</strong></p>
 
 <pre><code>#Git設定確認
-git config --global user.name
-git config --global user.email
+git config --local user.name
+git config --local user.email
 </code></pre>
 
 <br>
-
 <br>
 
 <h2 id="その他">Ⅱ. その他</h2>
