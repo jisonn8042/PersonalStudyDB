@@ -25,6 +25,7 @@
     <li><a href="#Ⅰ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#Ⅰ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
     <li><a href="#Ⅰ-リポジトリをクローンによる連携確認">リポジトリをクローンによる連携確認</a></li>
+    <li><a href="#Ⅰ-注意点">注意点</a></li>
 </ol>
 
 <h3><a href="#ssh設定-複数のGitHubアカウントを連携する場合">Ⅱ. ssh設定-複数のGitHubアカウントを連携する場合</a></h3>
@@ -152,11 +153,51 @@ cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
 
 <h3 id="Ⅰ-リポジトリをクローンによる連携確認">4. リポジトリをクローンによる連携確認</h3>
 
-<p>リポジトリをクローンによる連携確認を行います。</p>
+<p>リポジトリをクローンによる連携確認を行います。
+    <br>クローンする時、ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。
+</p>
+
+<p><strong>変更前</strong></p>
+
+<pre><code>git@github.com~
+
+# 変更前例
+git@github.com~
+</code></pre>
+
+<p><strong>変更後</strong></p>
+
+<pre><code>git@[alias(別名)]~
+
+# 変更後例
+git@personal-github~
+</code></pre>
+
+<br>
 
 <p><strong>確認</strong></p>
 
 <pre><code>git clone [リポジトリURL]</code></pre>
+
+<br>
+<br>
+
+<h3 id="Ⅰ-注意点">5.注意点</h3>
+
+<h3>ssh URLの書き方</h3>
+
+<p>ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。</p>
+
+<p><strong>変更例</strong></p>
+
+<pre><code>git@[alias(別名)]~
+
+# 変更前例
+git@github.com~
+
+# 変更後例
+git@personal-github~
+</code></pre>
 
 <br>
 <br>
@@ -334,7 +375,7 @@ git clone git@different-github~
 
 <h3>ssh URLの書き方</h3>
 
-<p>ssh URLの前の <code> github.com <code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。</p>
+<p>ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。</p>
 
 <p><strong>変更例</strong></p>
 
@@ -347,7 +388,7 @@ git@github.com~
 git@different-github~
 </code></pre>
 
-    <br>
+<br>
 
 <h3>ローカルGit設定</h3>
 
