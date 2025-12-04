@@ -55,7 +55,7 @@
 ssh-keygen -t ed25519 -C "[GitHubメールアドレス]" -f ~/.ssh/id_ed25519_[任意の名前]
 
 #入力例
-ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/id_ed25519_personal_github
+ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/id_ed25519_personal-github
 </code></pre>
 
 <p><strong>確認</strong></p>
@@ -77,7 +77,7 @@ ls -al ~/.ssh
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519_[任意の名前]
 
 #入力例
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal_github
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal-github
 </code></pre>
 
 <br>
@@ -95,7 +95,7 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal_github
 cat ~/.ssh/id_ed25519_[任意の名前].pub | pbcopy
 
 #入力例
-cat ~/.ssh/id_ed25519_personal_github.pub | pbcopy
+cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
 </code></pre>
 
 <p>2. GitHubのSettingsに移動して、SSH and GPG keysに移動します。</p>
@@ -157,6 +157,20 @@ git config --local user.email
 
 <h2 id="ssh設定-複数のGitHubアカウントを連携する場合">Ⅱ. ssh設定-複数のGitHubアカウントを連携する場合</h2>
 
+<p>ssh通信に使う住所は[ユーザ名]@[ホスト名]...の形式になっています。</p>
+
+<p>
+    1つのgithubアカウントだけ連携して通信する場合は、同じユーザ(git)に対し、1つのキーで通信するので大丈夫ですが、
+
+    <br>複数のアカウントを連携する場合は、アカウント別に通信に合う異なるキーを使用するように設定する必要があります。
+
+    <br>ssh通信時、~/.ssh/configファイルを参照して行いますので
+
+    <br>configファイルにalias別に使用するキーを設定して置くと、
+
+    <br>ssh住所を書く時、ホスト名(github.com)の代わりにaliasを書いて、状況別に適切なキーを使用するように設定ができます。
+</p>
+
 <hr>
 
 <h3 id="キー作成">1. sshキー生成</h3>
@@ -169,7 +183,7 @@ git config --local user.email
 ssh-keygen -t ed25519 -C "[GitHub用メールアドレス]" -f ~/.ssh/id_ed25519_[任意の名前]
 
 #入力例
-ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/personal_github
+ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/id_ed25519_different-github
 </code></pre>
 
 <p><strong>確認</strong></p>
@@ -191,7 +205,7 @@ ls -al ~/.ssh
 ssh-add --apple-use-keychain ~/.ssh/id_ed25519_[任意の名前]
 
 #入力例
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal_github
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_different-github
 </code></pre>
 
 <br>
@@ -245,7 +259,7 @@ Host github.com
 Host github-personal             # 呼び出す別名
     HostName github.com          
     User git
-    IdentityFile ~/.ssh/personal_github  #作った個人用sshキー
+    IdentityFile ~/.ssh/personal-github  #作った個人用sshキー
     IdentitiesOnly yes           # エージェントが他のキーを無視する
     UseKeychain yes
     AddKeysToAgent yes
@@ -262,7 +276,7 @@ Host github-personal             # 呼び出す別名
 cat ~/.ssh/[任意の名前].pub | pbcopy
 
 #入力例
-cat ~/.ssh/personal_github.pub | pbcopy
+cat ~/.ssh/personal-github.pub | pbcopy
 </code></pre>
 
 <br>
