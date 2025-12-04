@@ -15,7 +15,7 @@
     <li><a href="#Ⅰ-sshキー生成">sshキー生成</a></li>
     <li><a href="#Ⅰ-キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#Ⅰ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#Ⅰ-コマンドで連携確認">コマンドで連携確認</a></li>
+    <li><a href="#Ⅰ-レポジトリをクローンで連携確認">レポジトリをクローンで連携確認</a></li>
     <li><a href="#Ⅰ-注意点">注意点</a></li>
 </ol>
 
@@ -26,7 +26,7 @@
     <li><a href="#Ⅱ-キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#Ⅱ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#Ⅱ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#Ⅱ-コマンドで連携確認">コマンドで連携確認</a></li>
+    <li><a href="#Ⅱ-レポジトリをクローンで連携確認">レポジトリをクローンで連携確認</a></li>
     <li><a href="#Ⅱ-注意点">注意点</a></li>
 </ol>
 
@@ -108,7 +108,7 @@ cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="Ⅰ-コマンドで連携確認">4. コマンドで連携確認</h3>
+<h3 id="Ⅰ-レポジトリをクローンで連携確認">4. レポジトリをクローンで連携確認</h3>
 
 <p>
     実際pushは行なわないのですが、実行されるかどうかを確認できる <code>git push --dry-run</code> コマンドを実行して連携確認を行います。
@@ -285,21 +285,42 @@ cat ~/.ssh/personal-github.pub | pbcopy
 <br>
 <br>
 
-h3 id="コマンドで連携確認">5. コマンドで連携確認</h3>
+<h3 id="Ⅱ-レポジトリをクローンで連携確認">5. レポジトリをクローンで連携確認</h3>
+
+<p>レポジトリをクローンで連携確認を行います。</p>
+
+<p>クローンする時、住所を下のように変えてください。</p>
 
 <p>
-    実際pushは行なわないのですが、実行されるかどうかを確認できる <code>git push --dry-run</code> コマンドを実行して連携確認を行います。
-    <br>実行結果がErrorでは無い場合、設定が正しく行われていることを示します。
+    <strong>変更前</strong>
+<pre><code>ssh git@github.com:[レポジトリ名].git
+    </code></pre>
+
+<br>
+
+<strong>変更後</strong>
+<pre><code>ssh git@different-github:[レポジトリ名].git
+    </code></pre>
 </p>
+
+<br>
 
 <p><strong>確認</strong></p>
 
-<pre><code>git push --dry-run</code></pre>
+<pre><code>git clone [repository ssh住所]    
+</code></pre>
 
 <br>
 <br>
 
 <h3 id="Ⅱ-注意点">6. 注意点</h3>
+
+<h4>ssh住所の書き方</h4>
+
+<p>ssh住所の書き方は以下のようになります。</p>
+
+<pre><code>ssh git@[alias(別名)]:[レポジトリ名].git
+</code></pre>
 
 <h4>ローカルGit設定</h4>
 
