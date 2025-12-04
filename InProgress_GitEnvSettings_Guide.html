@@ -213,9 +213,12 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519_different-github
 
 <h3 id="Ⅱ-~/.ssh/config生成・設定">3. ~/.ssh/config生成・設定</h3>
 
+<p>~/.ssh/configファイルを生成・設定します。</p>
+
+<p><strong>IdentitiesOnly yesの設定観点</strong></p>
+
 <p>
-    ~/.ssh/configファイルを生成・設定します。
-    <br>IdentitiesOnly yesを正しくセットアップするには、ssh、ssh-agentについて理解する必要があります。
+    IdentitiesOnly yesを正しくセットアップするには、ssh、ssh-agentについて理解する必要があります。
     <br>ssh-agentは、sshキーを保管、管理するためのエージェントです。
     <br>ssh接続時、sshキーで認証を行いますが、その時、どのsshキーを使用するかを決めるのがssh-agentで~/.ssh/configファイルを参照して決定します。
     <br>通常は大丈夫ですが、GitHubはすべての接続をgitという単一のUser名で受け付けするようになってます。
