@@ -9,25 +9,24 @@
 
 <hr>
 
-<h3><a href="#SSH設定-1つのGitHubアカウントを連携する場合">Ⅰ. SSH設定-1つのGitHubアカウントを連携する場合</a></h3>
+<h3><a href="#ssh設定-1つのGitHubアカウントを連携する場合">Ⅰ. ssh設定-1つのGitHubアカウントを連携する場合</a></h3>
 
 <ol>
-    <li><a href="#キー作成">SSHキー生成</a></li>
+    <li><a href="#キー作成">sshキー生成</a></li>
     <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
-    <li><a href="#~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
-    <li><a href="#GitHubにSSHキーを登録">GitHubにSSHキーを登録</a></li>
+    <li><a href="#GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
     <li><a href="#git_cloneで設定確認">git cloneで設定確認</a></li>
     <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
     <li><a href="#注意点">注意点</a></li>
 </ol>
 
-<h3><a href="#SSH設定-複数のGitHubアカウントを連携する場合">Ⅱ. SSH設定-複数のGitHubアカウントを連携する場合</a></h3>
+<h3><a href="#ssh設定-複数のGitHubアカウントを連携する場合">Ⅱ. ssh設定-複数のGitHubアカウントを連携する場合</a></h3>
 
 <ol>
-    <li><a href="#キー作成">SSHキー生成</a></li>
+    <li><a href="#キー作成">sshキー生成</a></li>
     <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
-    <li><a href="#GitHubにSSHキーを登録">GitHubにSSHキーを登録</a></li>
+    <li><a href="#GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
     <li><a href="#git_cloneで設定確認">git cloneで設定確認</a></li>
     <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
     <li><a href="#注意点">注意点</a></li>
@@ -36,20 +35,157 @@
 <h3><a href="#その他">Ⅲ. その他</a></h3>
 
 <ul>
-    <li><a href="#SSHとは">SSHとは</a></li>
+    <li><a href="#sshとは">sshとは</a></li>
     <li><a href="#キーチェインとは">キーチェインとは</a></li>
 </ul>
 
 <br>
 <br>
 
-<h2 id="SSH設定">Ⅰ. SSH設定</h2>
+<h2 id="ssh設定-1つのGitHubアカウントを連携する場合">Ⅰ. ssh設定-1つのGitHubアカウントを連携する場合</h2>
 
 <hr>
 
-<h3 id="キー作成">1. SSHキー生成</h3>
+<h3 id="キー作成">1. sshキー生成</h3>
 
-<p>GitHubと連携するためのSSHキーを生成します。</p>
+<p>GitHubと連携するためのsshキーを生成します。</p>
+
+<p><strong>生成</strong></p>
+
+<pre><code># -f を活用し任意の名前でキーを生成します。
+ssh-keygen -t ed25519 -C "[GitHubメールアドレス]" -f ~/.ssh/id_ed25519_[任意の名前]
+
+#入力例
+ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/id_ed25519_personal_github
+</code></pre>
+
+<p><strong>確認</strong></p>
+
+<pre><code>#コマンドを入力時[任意の名前]になっているファイルの有無を確認します。
+ls -al ~/.ssh
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="キーチェイン設定">2. キーチェイン設定</h3>
+
+<p>macを再起動してもパスワードを毎回入力するのを防ぐためにキーチェインに登録します。</p>
+
+<p><strong>設定</strong></p>
+
+<pre><code>#キーチェインに登録
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_[任意の名前]
+
+#入力例
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal_github
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="GitHubにsshキーを登録">3. GitHubにsshキーを登録</h3>
+
+<p>GitHubにsshキーを登録します。</p>
+
+<p><strong>設定</strong></p>
+
+<p>macにあるsshキーをコピーします。</p>
+
+<pre><code>#GitHubにsshキーを登録
+cat ~/.ssh/[任意の名前].pub | pbcopy
+
+#入力例
+cat ~/.ssh/id_ed25519_personal_github.pub | pbcopy
+</code></pre>
+
+<p>GitHubのSettingsに移動して、SSH and GPG keysに移動します。</p>
+
+<p>"New SSH key"を押して、タイトルとキーを入力します。</p>
+
+<p>タイトルは任意で、キーはコピーしたものを貼り付けます。</p>
+
+<p>"Add SSH key"を押します。</p>
+
+<br>
+<br>
+
+<h3 id="git_cloneで設定確認">4. git cloneで設定確認</h3>
+
+<p>git cloneで設定を確認します。</p>
+
+<p>원래 주소: git@github.com:MyName/MyRepo.git</p>
+
+<p>바꿀 주소: git@github-personal:MyName/MyRepo.git</p>
+
+<pre><code>#git cloneで設定を確認
+git clone [リモートリポジトリURL]
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="ローカルGit設定">5. ローカルGit設定</h3>
+
+<p>ローカルGit設定を行います。</p>
+
+<p><strong>設定</strong></p>
+
+<pre><code>#グローバルGit設定
+git config --global user.name "[名前]"
+git config --global user.email "[メールアドレス]"
+
+#ローカルGit設定
+git config --local user.name "[名前]"
+git config --local user.email "[メールアドレス]"
+
+#入力例
+git config --global user.name "example"
+git config --global user.email "example@example.com"
+
+git config --local user.name "example"
+git config --local user.email "example@example.com"
+
+</code></pre>
+
+<br>
+
+<p><strong>確認</strong></p>
+
+<pre><code>#Git設定確認
+git config --global user.name
+git config --global user.email
+</code></pre>
+
+<br>
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+
+<h3 id="キー作成">1. sshキー生成</h3>
+
+<p>GitHubと連携するためのsshキーを生成します。</p>
 
 <p><strong>生成</strong></p>
 
@@ -90,7 +226,7 @@ ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal_github
 <p>
     ~/.ssh/configファイルを生成・設定します。
     <br>IdentitiesOnly yesを正しくセットアップするには、ssh、ssh-agentについて理解する必要があります。
-    <br>ssh-agentは、SSHキーを保管、管理するためのエージェントです。
+    <br>ssh-agentは、sshキーを保管、管理するためのエージェントです。
     <br>ssh接続時、sshキーで認証を行いますが、その時、どのsshキーを使用するかを決めるのがssh-agentで~/.ssh/configファイルを参照して決定します。
     <br>通常は大丈夫ですが、GitHubはすべての接続をgitという単一のUser名で受け付けするようになってます。
     <br>その為、同じUser名に対して異なるsshキーが必要な場合もあります。
@@ -133,7 +269,7 @@ Host github.com
 Host github-personal             # 呼び出す別名
     HostName github.com          
     User git
-    IdentityFile ~/.ssh/personal_github  #作った個人用SSHキー
+    IdentityFile ~/.ssh/personal_github  #作った個人用sshキー
     IdentitiesOnly yes           # エージェントが他のキーを無視する
     UseKeychain yes
     AddKeysToAgent yes
@@ -142,11 +278,11 @@ Host github-personal             # 呼び出す別名
 <br>
 <br>
 
-<h3 id="GitHubにSSHキーを登録">4. GitHubにSSHキーを登録</h3>
+<h3 id="GitHubにsshキーを登録">4. GitHubにsshキーを登録</h3>
 
-<p>GitHubにSSHキーを登録します。</p>
+<p>GitHubにsshキーを登録します。</p>
 
-<pre><code>#GitHubにSSHキーを登録
+<pre><code>#GitHubにsshキーを登録
 cat ~/.ssh/[任意の名前].pub | pbcopy
 
 #入力例
@@ -211,7 +347,7 @@ git config --global user.email
 
 <hr>
 
-<h3 id="SSHとは">SSHとは</h3>
+<h3 id="sshとは">sshとは</h3>
 
 <br>
 
@@ -230,7 +366,7 @@ mac의 ssh-agent는
 
 접속 시도: 사용자가 git push를 합니다.
 
-에이전트의 개입: SSH 에이전트가 나섭니다. "주인님, 제가 열쇠 꾸러미를 가지고 있어요. 제일 먼저 등록된 **A열쇠(JisungPark8024용)**부터 찔러볼게요."
+에이전트의 개입: ssh 에이전트가 나섭니다. "주인님, 제가 열쇠 꾸러미를 가지고 있어요. 제일 먼저 등록된 **A열쇠(JisungPark8024용)**부터 찔러볼게요."
 
 GitHub의 반응 (여기가 중요!): GitHub 입장에서는 A열쇠도 당신이 등록한 유효한 열쇠입니다.
 
@@ -245,7 +381,7 @@ GitHub: "잠깐, 너는 JisungPark8024잖아? 저 저장소는 jisonn8042 꺼야
 결과: 에러 발생. (에이전트가 B열쇠(jisonn8042용)를 꺼내보기도 전에 A열쇠에서 덜컥 로그인이 되어버려서 망한 케이스입니다.)
 
 3. 해결책: IdentitiesOnly yes의 역할
-이 옵션은 SSH 클라이언트에게 다음과 같이 명령하는 것입니다.
+이 옵션은 ssh 클라이언트에게 다음과 같이 명령하는 것입니다.
 
 "야, 에이전트가 옆에서 무슨 열쇠를 들이밀든 싹 무시해. 오직 내가 IdentityFile로 지정한 이 파일(B열쇠) 딱 하나만 써서 접속해."
 
@@ -266,7 +402,7 @@ GitHub는 하나의 도메인(github.com)에서 여러 계정을 처리하기 �
 
 
 
-좋은 질문입니다. 기술적으로 깊이 들어가면 SSH 프로토콜의 설계 철학과 GitHub라는 서비스의 특수성이 맞물려 있는 흥미로운 문제입니다.
+좋은 질문입니다. 기술적으로 깊이 들어가면 ssh 프로토콜의 설계 철학과 GitHub라는 서비스의 특수성이 맞물려 있는 흥미로운 문제입니다.
 
 하나씩 명쾌하게 풀어드릴게요.
 
@@ -277,7 +413,7 @@ Antigravity (터미널):
 
 운영체제(macOS)의 **표준 ssh-agent**와 가장 직접적으로 소통합니다.
 
-현재 당신의 터미널 환경변수(SSH_AUTH_SOCK)가 가리키는 에이전트는 JisungPark8024 키를 가장 "우선순위가 높은 키"로 들고 있었을 확률이 100%입니다.
+현재 당신의 터미널 환경변수(ssh_AUTH_SOCK)가 가리키는 에이전트는 JisungPark8024 키를 가장 "우선순위가 높은 키"로 들고 있었을 확률이 100%입니다.
 
 터미널은 "에이전트가 주는 게 정답이겠지" 하고 순진하게 그 키를 썼다가 사단이 난 것입니다.
 
@@ -291,20 +427,20 @@ Cursor가 git을 실행할 때는 시스템의 ssh-agent에 전적으로 의존�
 즉, Cursor는 "무식하게 에이전트가 주는 첫 번째 키"를 쓴 게 아니라, "이 프로젝트는 jisonn8042 꺼니까 이 키를 써야지"라고 내부적으로 교통정리를 해줬을 수 있습니다.
 
 2. 왜 IdentitiesOnly yes가 기본값이 아닐까?
-"왜 이렇게 귀찮게 설정을 따로 해야 해? 그냥 기본으로 켜두면 안 돼?"라는 의문은 정말 타당합니다. 하지만 SSH 개발자들 입장에서는 **"편의성"**이 더 중요했습니다.
+"왜 이렇게 귀찮게 설정을 따로 해야 해? 그냥 기본으로 켜두면 안 돼?"라는 의문은 정말 타당합니다. 하지만 ssh 개발자들 입장에서는 **"편의성"**이 더 중요했습니다.
 
 이유 A: "설정 파일 없이도 동작해야 한다" (Zero Configuration)
-SSH의 기본 철학은 **"사용자가 아무 설정도 안 해도, 키만 있으면 접속돼야 한다"**입니다. 대부분의 개발자는 서버 하나에 키 하나만 씁니다. 만약 IdentitiesOnly yes가 기본값이라면, 모든 사람은
-SSH 접속을 할 때마다:
+ssh의 기본 철학은 **"사용자가 아무 설정도 안 해도, 키만 있으면 접속돼야 한다"**입니다. 대부분의 개발자는 서버 하나에 키 하나만 씁니다. 만약 IdentitiesOnly yes가 기본값이라면, 모든 사람은
+ssh 접속을 할 때마다:
 
 반드시 설정 파일을 만들고,
 
 IdentityFile 경로를 일일이 지정해줘야만 접속이 됩니다. 이는 범용성 측면에서 너무 불편한 일입니다.
 
 이유 B: 이 문제는 "GitHub의 특수성" 때문입니다
-사실 이 문제는 SSH의 잘못이라기보다, 우리가 SSH를 "한 집(GitHub.com)에 사는 두 명의 다른 사람"에게 접속하려 해서 생긴 문제입니다.
+사실 이 문제는 ssh의 잘못이라기보다, 우리가 ssh를 "한 집(GitHub.com)에 사는 두 명의 다른 사람"에게 접속하려 해서 생긴 문제입니다.
 
-일반적인 SSH 사용:
+일반적인 ssh 사용:
 
 서버A.com 접속 -> A키 사용
 
@@ -320,7 +456,7 @@ github.com (개인 계정) -> B키 필요
 
 주소(Host)가 똑같습니다!
 
-SSH 입장에서는 "어? 같은 집(github.com)에 가는데 왜 키를 까다롭게 골라? 그냥 문 열리는 키 아무거로나 들어가면 되잖아?" 라고 생각하는 겁니다. 그래서 기본 설정(Agent Forwarding)이
+ssh 입장에서는 "어? 같은 집(github.com)에 가는데 왜 키를 까다롭게 골라? 그냥 문 열리는 키 아무거로나 들어가면 되잖아?" 라고 생각하는 겁니다. 그래서 기본 설정(Agent Forwarding)이
 "가진 키 다 찔러보기"로 되어 있는 것이죠.
 
 요약하자면
@@ -347,10 +483,10 @@ ssh로 통신시 정해진 프로토콜이나 규약이 있어? 앞은 연결할
 
 네, 정확히 보셨습니다! **"같은 서비스에 여러 계정을 쓸 때는 Alias(별칭)를 쓴다"**는 것이 이 문제의 정석적인 해결법입니다.
 
-궁금해하신 **SSH 통신 주소의 규칙(앞@뒤)**에 대해 아주 명확하게 정리해 드릴게요. 우리가 흔히 쓰는 이메일 주소와 비슷해 보이지만, 의미는 전혀 다릅니다.
+궁금해하신 **ssh 통신 주소의 규칙(앞@뒤)**에 대해 아주 명확하게 정리해 드릴게요. 우리가 흔히 쓰는 이메일 주소와 비슷해 보이지만, 의미는 전혀 다릅니다.
 
-1. SSH 접속 주소의 기본 공식
-SSH 명령어의 기본 문법은 다음과 같습니다.
+1. ssh 접속 주소의 기본 공식
+ssh 명령어의 기본 문법은 다음과 같습니다.
 
 Bash
 ssh [유저이름]@[호스트주소]
@@ -359,7 +495,7 @@ ssh [유저이름]@[호스트주소]
 [호스트주소] (뒤): 원격 컴퓨터의 IP 주소 또는 도메인 (혹은 우리가 만든 Alias)
 
 2. git@github-personal의 해부
-질문하신 내용인 "앞은 연결할 서비스, 뒤는 SSH 키의 Host 이름"이 맞는지, 실제 git@github-personal을 예로 들어 뜯어보겠습니다.
+질문하신 내용인 "앞은 연결할 서비스, 뒤는 ssh 키의 Host 이름"이 맞는지, 실제 git@github-personal을 예로 들어 뜯어보겠습니다.
 
 ① 앞부분 (git) : 서비스 이름이 아니라 "문지기 이름"
 오해: "GitHub니까 git이라고 쓰는 건가?"
@@ -372,14 +508,14 @@ jisungpark@github.com (X) -> 이렇게 접속하지 않습니다.
 
 git@github.com (O) -> 무조건 이걸로 통일입니다.
 
-대신, **"누가 접속했냐"**는 오직 **SSH Key(열쇠)**로만 구별합니다.
+대신, **"누가 접속했냐"**는 오직 **ssh Key(열쇠)**로만 구별합니다.
 
 ② 뒷부분 (github-personal) : 이게 바로 우리가 만든 "지름길(Alias)"
 원래는 도메인(github.com)을 써야 합니다.
 
 하지만 우리가 .ssh/config에 Host github-personal이라고 이름을 붙여놨죠?
 
-SSH는 이 뒷부분을 보고 설정 파일을 뒤집니다.
+ssh는 이 뒷부분을 보고 설정 파일을 뒤집니다.
 
 "어? 주소가 github-personal이네? 설정 파일에 이런 이름이 있나? 아, 여기 있네! 실제 주소(HostName)는 github.com으로 바꾸고, 열쇠(IdentityFile)는 id_ed25519를
 챙겨가야지."
@@ -387,7 +523,7 @@ SSH는 이 뒷부분을 보고 설정 파일을 뒤집니다.
 3. 그림으로 요약 (변환 과정)
 사용자가 터미널에 입력한 명령어: git clone git@github-personal:username/repo.git
 
-SSH가 내부적으로 변환해서 실행하는 실제 모습:
+ssh가 내부적으로 변환해서 실행하는 실제 모습:
 
 Bash
 # [유저] [실제주소(HostName)] [지정된 열쇠]
