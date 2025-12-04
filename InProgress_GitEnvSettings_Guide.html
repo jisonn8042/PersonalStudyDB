@@ -16,7 +16,6 @@
     <li><a href="#キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
     <li><a href="#コマンドで連携確認">コマンドで連携確認</a></li>
-    <li><a href="#ローカルGit設定">ローカルGit設定</a></li>
     <li><a href="#注意点">注意点</a></li>
 </ol>
 
@@ -123,27 +122,25 @@ cat ~/.ssh/id_ed25519_personal_github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="ローカルGit設定">5. ローカルGit設定</h3>
+<h3 id="注意点">5. 注意点</h3>
 
-<p>コミット履歴に正しい情報を表示するための設定を行います。</p>
+<p>注意点を記載します。</p>
+
+<h4>ローカルGit設定</h4>
+
+<p>ローカルGit設定は、コミット履歴に正しい情報を表示するための設定を行います。</p>
+
+<p>設定はプロジェクトのルートディレクトリで行います。</p>
 
 <p><strong>設定</strong></p>
 
-<pre><code>#グローバルGit設定
-git config --global user.name "[名前]"
-git config --global user.email "[メールアドレス]"
-
-#ローカルGit設定
+<pre><code>#ローカルGit設定
 git config --local user.name "[名前]"
 git config --local user.email "[メールアドレス]"
 
 #入力例
-git config --global user.name "example"
-git config --global user.email "example@example.com"
-
 git config --local user.name "example"
 git config --local user.email "example@example.com"
-
 </code></pre>
 
 <br>
