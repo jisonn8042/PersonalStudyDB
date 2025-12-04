@@ -255,7 +255,7 @@ Host github.com
     AddKeysToAgent yes
 
 # ----------------------------
-# 2. 個人用 アカウント (Alias(別名)を使用)
+# 2. 個人用 アカウント (alias(別名)を使用)
 # ----------------------------
 Host github-personal                      
     HostName github.com                   
@@ -298,7 +298,9 @@ cat ~/.ssh/id_ed25519_different-github.pub | pbcopy
 
 <p><strong>変更後</strong></p>
 
-<pre><code>ssh git@different-github:[レポジトリ名].git
+<pre><code>ssh git@[alias(別名)]:[レポジトリ名].git
+# 変更例
+ssh git@different-github:[レポジトリ名].git
 </code></pre>
 
 <br>
@@ -318,6 +320,8 @@ cat ~/.ssh/id_ed25519_different-github.pub | pbcopy
 <p>ssh住所の@の後ろ、ホスト名を書く部分を、通信するアカウントに合うalias(別名)に書き換えます。</p>
 
 <pre><code>ssh git@[alias(別名)]:[レポジトリ名].git
+# 変更例
+ssh git@different-github:[レポジトリ名].git
 </code></pre>
 
 <br>
