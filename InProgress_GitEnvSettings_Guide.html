@@ -2,6 +2,14 @@
 
 <h1>macOS環境でのGit、GitHub環境管理ガイド</h1>
 
+<hr>
+
+<p><strong>読む前に</strong></p>
+
+<p>このガイドは全体的な流れを説明する為、各パートについて詳しい内容まで説明していません。例えば、sshキーの生成する時パスワードの設定とか、初めてクローンする時、許可の確認など、については説明していません。
+    <br>そのため、途中でわからないことがあれば、Googleなどで調べてみてください。
+</p>
+
 <br>
 <br>
 
@@ -13,22 +21,25 @@
 
 <ol>
     <li><a href="#Ⅰ-sshキー生成">sshキー生成</a></li>
-    <li><a href="#Ⅰ-キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#Ⅰ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#Ⅰ-レポジトリをクローンで連携確認">レポジトリをクローンで連携確認</a></li>
-    <li><a href="#Ⅰ-注意点">注意点</a></li>
+    <li><a href="#Ⅰ-リポジトリをクローンによる連携確認">リポジトリをクローンによる連携確認</a></li>
 </ol>
 
 <h3><a href="#ssh設定-複数のGitHubアカウントを連携する場合">Ⅱ. ssh設定-複数のGitHubアカウントを連携する場合</a></h3>
 
 <ol>
     <li><a href="#Ⅱ-sshキー生成">sshキー生成</a></li>
-    <li><a href="#Ⅱ-キーチェイン設定">キーチェイン設定</a></li>
     <li><a href="#Ⅱ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#Ⅱ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#Ⅱ-レポジトリをクローンで連携確認">レポジトリをクローンで連携確認</a></li>
+    <li><a href="#Ⅱ-リポジトリをクローンによる連携確認">リポジトリをクローンによる連携確認</a></li>
     <li><a href="#Ⅱ-注意点">注意点</a></li>
 </ol>
+
+<h3><a href="#Ⅲ-付録">Ⅲ. 付録</a></h3>
+
+<ul>
+    <li><a href="#Ⅲ-sshキー生成方法(詳細説明)">sshキー生成方法(詳細説明)</a></li>
+</ul>
 
 <br>
 <br>
@@ -59,23 +70,7 @@ ls -al ~/.ssh
 <br>
 <br>
 
-<h3 id="Ⅰ-キーチェイン設定">2. キーチェイン設定</h3>
-
-<p>macを再起動してもパスワードを毎回入力するのを防ぐためにキーチェインに登録します。</p>
-
-<p><strong>設定</strong></p>
-
-<pre><code>#キーチェインに登録
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519_[任意の名前]
-
-#入力例
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519_personal-github
-</code></pre>
-
-<br>
-<br>
-
-<h3 id="Ⅰ-GitHubにsshキーを登録">3. GitHubにsshキーを登録</h3>
+<h3 id="Ⅰ-GitHubにsshキーを登録">2. GitHubにsshキーを登録</h3>
 
 <p>GitHubにsshキーを登録します。</p>
 
@@ -101,45 +96,13 @@ cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="Ⅰ-レポジトリをクローンで連携確認">4. レポジトリをクローンで連携確認</h3>
+<h3 id="Ⅰ-リポジトリをクローンによる連携確認">3. リポジトリをクローンによる連携確認</h3>
 
-<p>レポジトリをクローンで連携確認を行います。</p>
-
-<p><strong>確認</strong></p>
-
-<pre><code>git clone [レポジトリURL]</code></pre>
-
-<br>
-<br>
-
-<h3 id="Ⅰ-注意点">5. 注意点</h3>
-
-<h4>ローカルGit設定</h4>
-
-<p>
-    ローカルGit設定は、コミット履歴に正しい情報を表示するための設定を行います。
-    <br>設定はプロジェクトのルートディレクトリで行います。
-</p>
-
-<p><strong>設定</strong></p>
-
-<pre><code>#ローカルGit設定
-git config --local user.name "[名前]"
-git config --local user.email "[GitHubメールアドレス]"
-
-#入力例
-git config --local user.name "example"
-git config --local user.email "example@example.com"
-</code></pre>
-
-<br>
+<p>リポジトリをクローンによる連携確認を行います。</p>
 
 <p><strong>確認</strong></p>
 
-<pre><code>#Git設定確認
-git config --local user.name
-git config --local user.email
-</code></pre>
+<pre><code>git clone [リポジトリURL]</code></pre>
 
 <br>
 <br>
@@ -149,15 +112,15 @@ git config --local user.email
 <hr>
 
 <p>
-    ssh通信に使う住所は[ユーザ名]@[ホスト名]...の形式になっています。
+    ssh通信に使うURLは[ユーザ名]@[ホスト名]...の形式になっています。
 
     <br>1つのgithubアカウントだけ連携して通信する場合は、同じユーザ(git)に対し、1つのキーで通信するので大丈夫ですが、複数のアカウントを連携する場合は、アカウント別に通信に合う異なるキーを使用する必要があります。
 
     <br><br>その為、sshは通信時、~/.ssh/configファイルを参照して行いますが、
 
-    <br>そのconfigファイルにalias別に使用するキーを設定して置くことで、ssh住所を書く時、ホスト名(github.com)の代わりにaliasを書いて、状況別に通信に異なるキーを使用することができます。
+    <br>そのconfigファイルにalias別に使用するキーを設定して置くことで、ssh URLを書く時、ホスト名(github.com)の代わりにaliasを書いて、状況別に通信に異なるキーを使用することができます。
 
-    <br><br>この章では、1章とほとんど同じですが、複数のGitHubアカウントを正しく連携する為の~/.ssh/configファイルの設定や、aliasを活用したssh住所の書き方を追加して説明します。
+    <br><br>この章では、1章とほとんど同じですが、複数のGitHubアカウントを正しく連携する為の~/.ssh/configファイルの設定や、aliasを活用したssh URLの書き方を追加して説明します。
 </p>
 
 <br>
@@ -184,28 +147,12 @@ ls -al ~/.ssh
 <br>
 <br>
 
-<h3 id="Ⅱ-キーチェイン設定">2. キーチェイン設定</h3>
-
-<p>macを再起動してもパスワードを毎回入力するのを防ぐためにキーチェインに登録します。</p>
-
-<p><strong>設定</strong></p>
-
-<pre><code>#キーチェインに登録
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519_[任意の名前]
-
-#入力例
-ssh-add --apple-use-keychain ~/.ssh/id_ed25519_different-github
-</code></pre>
-
-<br>
-<br>
-
-<h3 id="Ⅱ-~/.ssh/config生成・設定">3. ~/.ssh/config生成・設定</h3>
+<h3 id="Ⅱ-~/.ssh/config生成・設定">2. ~/.ssh/config生成・設定</h3>
 
 <p>~/.ssh/configファイルを生成・設定します。</p>
 
-<p>複数のアカウントを連携している場合、たまにalias(別名)を設定しても同じUser名に対してどっちのキーを使うべきか分からない場合があります。
-    <br>その時、alias(別名)にIdentitiesOnly yesを作成して置くと、ssh通信の時、ssh住所のホスト部分がそのalias(別名)になっている場合、そのalias(別名)のキー以外のキーは無視します。
+<p>複数のアカウントを連携している場合、たまにalias(別名)を設定しても同じUser名（git）に対して、どの鍵を使用すべきか自動判別できない場合があります。
+    <br>その時、alias(別名)にIdentitiesOnly yesを作成して置くと、ssh通信の時、ssh URLのホスト部分がそのalias(別名)になっている場合、指定されたキー以外は使用しないように制限します。
 </p>
 
 <p><strong>設定</strong></p>
@@ -215,15 +162,15 @@ cd ~/.ssh
 
 #~/.ssh/configファイルを生成
 touch config
-    
+
 #~/.ssh/configファイルを設定
-Host [別名]                                      # 別名
-    HostName github.com                          # ホスト名
-    User git                                     # User名
-    IdentityFile ~/.ssh/id_ed25519_[任意の名前]  # 作成したsshキー
-    IdentitiesOnly yes                           # 同じUser名に対して異なるsshキーを使用する
-    UseKeychain yes                              # キーチェインを使用する
-    AddKeysToAgent yes                           # エージェントにキーを追加する
+Host [別名]                                          # 別名
+    HostName github.com                              # ホスト名
+    User git                                         # User名
+    IdentityFile ~/.ssh/id_ed25519_[任意の名前]      # 作成したsshキー
+    IdentitiesOnly yes                               # 同じUser名に対して異なるsshキーを使用する
+    UseKeychain yes                                  # キーチェインを使用する
+    AddKeysToAgent yes                               # エージェントにキーを追加する
 
 #入力例
 # ----------------------------
@@ -232,7 +179,8 @@ Host [別名]                                      # 別名
 Host github.com
     HostName github.com
     User git
-    IdentityFile ~/.ssh/id_ed25519_work  # 会社アカウント用生成したキー
+    IdentityFile ~/.ssh/id_ed25519_work              # 会社アカウント用生成したキー
+    IdentitiesOnly yes  
     UseKeychain yes
     AddKeysToAgent yes
 
@@ -242,7 +190,7 @@ Host github.com
 Host personal-github                      
     HostName github.com                   
     User git                              
-    IdentityFile ~/.ssh/id_ed25519_personal-github  # 個人アカウント用生成したキー
+    IdentityFile ~/.ssh/id_ed25519_personal-github   # 個人アカウント用生成したキー
     IdentitiesOnly yes                    
     UseKeychain yes                       
     AddKeysToAgent yes 
@@ -259,10 +207,25 @@ Host different-github
     AddKeysToAgent yes 
 </code></pre>
 
+<p>さらにconfigファイルは、保安のため権限を制限する必要があります。</p>
+
+<p><strong>設定</strong></p>
+<pre><code>#~/.ssh/configファイルの権限を変更
+chmod 600 ~/.ssh/config                              # 600:所有者のみ読み書きができる
+</code></pre>
+
+<p><strong>確認</strong></p>
+<pre><code>#~/.ssh/configファイルの権限を確認
+ls -al ~/.ssh/config                                 # 結果の最初の部分に-rw-------と表示されていることを確認
+
+#結果例
+-rw-------  1   staff  1024  12  4 15:42 ~/.ssh/config
+</code></pre>
+
 <br>
 <br>
 
-<h3 id="Ⅱ-GitHubにsshキーを登録">4. GitHubにsshキーを登録</h3>
+<h3 id="Ⅱ-GitHubにsshキーを登録">3. GitHubにsshキーを登録</h3>
 
 <p>GitHubにsshキーを登録します。</p>
 
@@ -278,56 +241,56 @@ cat ~/.ssh/id_ed25519_different-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="Ⅱ-レポジトリをクローンで連携確認">5. レポジトリをクローンで連携確認</h3>
+<h3 id="Ⅱ-リポジトリをクローンによる連携確認">4. リポジトリをクローンによる連携確認</h3>
 
-<p>レポジトリをクローンで連携確認を行います。
-    <br>クローンする時、ssh住所の前の <code> github.com <code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。
+<p>リポジトリをクローンによる連携確認を行います。
+    <br>クローンする時、ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。
 </p>
 
 <p><strong>変更前</strong></p>
 
-<pre><code>ssh git@github.com~
+<pre><code>git@github.com~
 
 # 変更前例
-ssh git@github.com~
+git@github.com~
 </code></pre>
 
 <p><strong>変更後</strong></p>
 
-<pre><code>ssh git@[alias(別名)]~
+<pre><code>git@[alias(別名)]~
 
 # 変更後例
-ssh git@different-github~
+git@different-github~
 </code></pre>
 
 <br>
 
 <p><strong>確認</strong></p>
 
-<pre><code>git clone [変更後repository ssh住所]    
+<pre><code>git clone [変更後repository ssh URL]    
 
 # 入力例
-ssh git@different-github~
+git clone git@different-github~
 </code></pre>
 
 <br>
 <br>
 
-<h3 id="Ⅱ-注意点">6. 注意点</h3>
+<h3 id="Ⅱ-注意点">5. 注意点</h3>
 
-<h3>ssh住所の書き方</h3>
+<h3>ssh URLの書き方</h3>
 
-<p>ssh住所の前の <code> github.com <code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。</p>
+<p>ssh URLの前の <code> github.com <code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。</p>
 
 <p><strong>変更例</strong></p>
 
-<pre><code>ssh git@[alias(別名)]~
+<pre><code>git@[alias(別名)]~
 
 # 変更前例
-ssh git@github.com~
+git@github.com~
 
 # 変更後例
-ssh git@different-github~
+git@different-github~
 </code></pre>
 
     <br>
@@ -342,12 +305,12 @@ ssh git@different-github~
 <p><strong>設定</strong></p>
 
 <pre><code>#ローカルGit設定
-git config --local user.name "[名前]"
-git config --local user.email "[GitHubメールアドレス]"
+git config --local user.name [名前]
+git config --local user.email [GitHubメールアドレス]
 
 #入力例
-git config --local user.name "example"
-git config --local user.email "example@example.com"
+git config --local user.name example
+git config --local user.email example@example.com
 </code></pre>
 
 <br>
@@ -361,3 +324,7 @@ git config --local user.email
 
 <br>
 <br>
+
+<h2 id="Ⅲ-付録">Ⅲ. 付録</h2>
+
+<h3 id="Ⅲ-sshキー生成方法(詳細説明)">sshキー生成方法(詳細説明)</h3>
