@@ -1,4 +1,6 @@
-<head></head>
+<head>
+    <meta charset="UTF-8">
+</head>
 
 <h1>macOS環境でのGit、GitHub環境管理ガイド</h1>
 
@@ -24,7 +26,7 @@
     <li><a href="#Ⅰ-sshキー生成">sshキー生成</a></li>
     <li><a href="#Ⅰ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#Ⅰ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#Ⅰ-リポジトリをクローンによる連携確認">リポジトリをクローンによる連携確認</a></li>
+    <li><a href="#Ⅰ-リポジトリをクローンして連携確認">リポジトリをクローンして連携確認</a></li>
     <li><a href="#Ⅰ-注意点">注意点</a></li>
 </ol>
 
@@ -34,7 +36,7 @@
     <li><a href="#Ⅱ-sshキー生成">sshキー生成</a></li>
     <li><a href="#Ⅱ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#Ⅱ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
-    <li><a href="#Ⅱ-リポジトリをクローンによる連携確認">リポジトリをクローンによる連携確認</a></li>
+    <li><a href="#Ⅱ-リポジトリをクローンして連携確認">リポジトリをクローンして連携確認</a></li>
     <li><a href="#Ⅱ-注意点">注意点</a></li>
 </ol>
 
@@ -154,9 +156,9 @@ cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="Ⅰ-リポジトリをクローンによる連携確認">4. リポジトリをクローンによる連携確認</h3>
+<h3 id="Ⅰ-リポジトリをクローンして連携確認">4. リポジトリをクローンして連携確認</h3>
 
-<p>リポジトリをクローンによる連携確認を行います。
+<p>リポジトリをクローンして連携確認を行います。
     <br>クローンする時、ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。
 </p>
 
@@ -220,7 +222,7 @@ git@personal-github~
 
     <br><br>その為、sshは通信時、~/.ssh/configファイルを参照して行いますが、
 
-    <br>そのconfigファイルにalias別に使用するキーを設定して置くことで、ssh URLを書く時、ホスト名(github.com)の代わりにaliasを書いて、状況別に通信に異なるキーを使用することができます。
+    <br>そのconfigファイルにalias別に使用するキーを設定しておくことで、ssh URLを書く時、ホスト名(github.com)の代わりにaliasを書いて、状況別に通信に異なるキーを使用することができます。
 
     <br><br>この章では、1章とほとんど同じですが、複数のGitHubアカウントを正しく連携する為の~/.ssh/configファイルの設定や、aliasを活用したssh URLの書き方を追加して説明します。
 </p>
@@ -254,7 +256,7 @@ ls -al ~/.ssh
 <p>~/.ssh/configファイルを生成・設定します。</p>
 
 <p>複数のアカウントを連携している場合、たまにalias(別名)を設定しても同じUser名（git）に対して、どの鍵を使用すべきか自動判別できない場合があります。
-    <br>その時、alias(別名)にIdentitiesOnly yesを作成して置くと、ssh通信の時、ssh URLのホスト部分がそのalias(別名)になっている場合、指定されたキー以外は使用しないように制限します。
+    <br>その時、alias(別名)にIdentitiesOnly yesを作成しておくと、ssh通信の時、ssh URLのホスト部分がそのalias(別名)になっている場合、指定されたキー以外は使用しないように制限します。
 </p>
 
 <p><strong>設定</strong></p>
@@ -346,9 +348,9 @@ cat ~/.ssh/id_ed25519_different-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="Ⅱ-リポジトリをクローンによる連携確認">4. リポジトリをクローンによる連携確認</h3>
+<h3 id="Ⅱ-リポジトリをクローンして連携確認">4. リポジトリをクローンして連携確認</h3>
 
-<p>リポジトリをクローンによる連携確認を行います。
+<p>リポジトリをクローンして連携確認を行います。
     <br>クローンする時、ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。
 </p>
 
