@@ -8,7 +8,7 @@
 
 <p>このガイドは全体的な流れを説明する為、各パートについて詳しい内容まで説明していません。例えば、sshキーの生成する時パスワードの設定とか、初めてクローンする時、許可の確認など、については説明していません。
     <br>途中でわからないことがあれば、Googleなどで調べてみてください。
-    <br>(後で時間がある時付録に詳しい内容までどんどん追加します。)
+    <br>(後で時間がある時付録に詳しい内容までどんどん追加する予定です。)
 </p>
 
 <br>
@@ -22,6 +22,7 @@
 
 <ol>
     <li><a href="#Ⅰ-sshキー生成">sshキー生成</a></li>
+    <li><a href="#Ⅰ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
     <li><a href="#Ⅰ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
     <li><a href="#Ⅰ-リポジトリをクローンによる連携確認">リポジトリをクローンによる連携確認</a></li>
 </ol>
@@ -39,7 +40,7 @@
 <h3><a href="#Ⅲ-付録">Ⅲ. 付録</a></h3>
 
 <ul>
-    <li><a href="#Ⅲ-sshキー生成方法(詳細説明)">sshキー生成方法(詳細説明)</a></li>
+    <li><a href="#Ⅲ-追加予定_sshキー生成方法(詳細説明)">追加予定_sshキー生成方法(詳細説明)</a></li>
 </ul>
 
 <br>
@@ -71,7 +72,59 @@ ls -al ~/.ssh
 <br>
 <br>
 
-<h3 id="Ⅰ-GitHubにsshキーを登録">2. GitHubにsshキーを登録</h3>
+<h3 id="Ⅰ-~/.ssh/config生成・設定">2. ~/.ssh/config生成・設定</h3>
+
+<p>~/.ssh/configファイルを生成・設定します。</p>
+
+<p><strong>設定</strong></p>
+
+<pre><code>#~/.sshにディレクトリ移動
+cd ~/.ssh
+
+#~/.ssh/configファイルを生成
+touch config
+
+#~/.ssh/configファイルを設定
+Host [別名]                                          # 別名
+    HostName github.com                              # ホスト名
+    User git                                         # User名
+    IdentityFile ~/.ssh/id_ed25519_[任意の名前]      # 作成したsshキー
+    UseKeychain yes                                  # キーチェインを使用する
+    AddKeysToAgent yes                               # エージェントにキーを追加する
+
+#入力例
+# ----------------------------
+# 1. 個人用 アカウント (alias(別名)を使用)
+# ----------------------------
+Host personal-github                      
+    HostName github.com                   
+    User git                              
+    IdentityFile ~/.ssh/id_ed25519_personal-github   # 個人アカウント用生成したキー
+    UseKeychain yes                       
+    AddKeysToAgent yes 
+
+</code></pre>
+
+<p>さらにconfigファイルは、保安のため権限を制限する必要があります。</p>
+
+<p><strong>設定</strong></p>
+<pre><code>#~/.ssh/configファイルの権限を変更
+chmod 600 ~/.ssh/config                              # 600:所有者のみ読み書きができる
+</code></pre>
+
+<p><strong>確認</strong></p>
+<pre><code>#~/.ssh/configファイルの権限を確認
+ls -al ~/.ssh/config                                 # 結果の最初の部分に-rw-------と表示されていることを確認
+
+#結果例
+-rw-------  1   staff  1024  12  4 15:42 ~/.ssh/config
+</code></pre>
+
+<br>
+<br>
+
+
+<h3 id="Ⅰ-GitHubにsshキーを登録">3. GitHubにsshキーを登録</h3>
 
 <p>GitHubにsshキーを登録します。</p>
 
@@ -97,7 +150,7 @@ cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
 <br>
 <br>
 
-<h3 id="Ⅰ-リポジトリをクローンによる連携確認">3. リポジトリをクローンによる連携確認</h3>
+<h3 id="Ⅰ-リポジトリをクローンによる連携確認">4. リポジトリをクローンによる連携確認</h3>
 
 <p>リポジトリをクローンによる連携確認を行います。</p>
 
@@ -328,4 +381,4 @@ git config --local user.email
 
 <h2 id="Ⅲ-付録">Ⅲ. 付録</h2>
 
-<h3 id="Ⅲ-sshキー生成方法(詳細説明)">sshキー生成方法(詳細説明)</h3>
+<h3 id="Ⅲ-追加予定_sshキー生成方法(詳細説明)">追加予定_sshキー生成方法(詳細説明)</h3>
