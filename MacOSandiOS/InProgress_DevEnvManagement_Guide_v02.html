@@ -1,0 +1,159 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InProgress_DevEnvManagement_Guide_v02</title>
+</head>
+
+<h1>iOS開発環境管理ガイド</h1>
+
+<h2>目次</h2>
+
+<h2>Ⅰ. 必須管理項目</h2>
+
+<ol>
+    <li>
+        <h3>macOS & Xcode</h3>
+    </li>
+    <li>
+        <h3>xcodeproj</h3>
+    </li>
+    <li>
+        <h3>Libraries</h3>
+    </li>
+</ol>
+
+<h2>Ⅱ. 項目管理ツール比較</h2>
+
+<ol>
+    <li>
+        <h3>xcodes</h3>
+    </li>
+    <li>
+        <h3>xcodegen & Tuist</h3>
+    </li>
+    <li>
+        <h3>cocoapods & Carthage & Swift Package Manager(SPM)</h3>
+    </li>
+</ol>
+
+<h2>Ⅲ. 環境管理構築</h2>
+
+<ul>
+    <li>
+        <h3>xcodes, Tuist, cocoapodsを用いた環境管理方法</h3>
+    </li>
+</ul>
+
+
+
+[글의 제목 (가제)] iOS 개발 환경의 진화: 수동의 낭만에서 '코드형 환경(Environment as Code)'까지
+1. 서론: "내 컴퓨터에선 되는데요?"의 종말
+"iOS 프로젝트를 성공적으로 빌드하기 위해 맞춰야 할 4가지 퍼즐 조각"
+
+우리가 단순히 소스 코드(swift)만 잘 짠다고 해서 협업이 가능한 것은 아닙니다. iOS 개발 환경은 서로 긴밀하게 얽혀 있는 4가지 핵심 의존성(Dependency) 위에서 돌아갑니다.
+
+macOS (운영체제): 모든 툴이 실행되는 그라운드. Xcode의 특정 버전은 특정 macOS 버전을 요구합니다.
+
+Xcode (툴체인): 컴파일러(Swift), SDK, 시뮬레이터를 포함하는 거대한 도구입니다. 팀원 간 버전이 다르면 빌드조차 되지 않습니다.
+
+xcodeproj (프로젝트 구조): 소스 코드의 파일 경로와 빌드 설정이 담긴 지도(Map)입니다. 하지만 텍스트가 아닌 '객체 그래프' 구조라 협업 시 충돌의 주범이 됩니다.
+
+Libraries (외부 리소스): 개발 효율을 위해 가져다 쓰는 남의 코드입니다. 버전과 의존성 관계가 꼬이면 지옥(Dependency Hell)이 펼쳐집니다.
+
+이 글에서는 이 4가지 요소가 과거에는 어떤 **고통(Pain Point)**을 주었으며, 현재는 어떤 도구들을 통해 **제어(Control)**되고 있는지 그 진화 과정을 살펴봅니다.
+
+2. 본론 1: 툴체인의 통제 (macOS & Xcode)
+"컴파일러를 일치시키지 않으면 언어조차 다른 것이다"
+
+[관리의 필요성]
+
+Swift 언어는 빠르게 변화했습니다 (Swift 2 → 3 → 4). Xcode 버전이 다르면 컴파일러 버전이 다르고, 문법 오류가 발생합니다.
+
+macOS는 Xcode 설치의 전제 조건입니다. (예: Xcode 16은 macOS Sonoma 이상 필요)
+
+[과거의 고통: 수동 관리]
+
+"App Store에서 업데이트 버튼 누르지 마세요!"라고 팀원들에게 공지함.
+
+누군가 실수로 업데이트하면, 그 사람은 하루 종일 다운그레이드하느라 일을 못함.
+
+[현재의 진화: xcodes & .xcode-version]
+
+xcodes 같은 CLI 도구를 도입하여 특정 버전의 Xcode 다운로드 및 스위칭을 자동화.
+
+프로젝트 루트에 .xcode-version 파일을 두어 "이 프로젝트는 15.2 버전이 아니면 빌드 불가"임을 명시.
+
+3. 본론 2: 구조의 통제 (xcodeproj)
+"파일이 바뀌면 설정도 바뀐다: UUID의 저주와 해방"
+
+[관리의 필요성]
+
+Xcode는 파일 시스템(Finder)과 논리적 구조(Project Navigator)를 분리하기 위해 project.pbxproj라는 파일에 UUID(고유 식별자) 기반의 객체 그래프를 저장합니다.
+
+파일 하나를 추가해도 수십 줄의 UUID 참조가 변경됩니다.
+
+[과거의 고통: Git 충돌 지옥]
+
+개발자 A와 B가 동시에 파일을 추가하면 project.pbxproj에서 충돌(Conflict)이 발생.
+
+사람이 읽기 힘든 내부 구조 때문에 Merge가 매우 어렵고, 잘못 수정하면 프로젝트 파일이 열리지 않음.
+
+[현재의 진화: Tuist (Project Generation)]
+
+발상의 전환: "프로젝트 파일을 관리하지 말고, 매번 새로 만들자."
+
+Swift 코드로 프로젝트 설정을 정의하고, tuist generate 명령어로 로컬 파일 상태에 딱 맞는 .xcodeproj를 즉석에서 생성.
+
+Git 충돌 원천 차단 및 모듈화 용이성 확보.
+
+4. 본론 3: 의존성의 통제 (Libraries)
+"파일 복사 붙여넣기에서 '선언(Declaration)'의 시대로"
+
+[관리의 필요성]
+
+라이브러리 간의 복잡한 의존성 관계(A를 쓰려면 B가 필요하고, B는 C의 특정 버전이 필요함)를 사람이 수동으로 관리하는 것은 불가능에 가깝습니다.
+
+[과거의 고통: 수동의 시대 (Manual)]
+
+Zip 파일 다운로드 → 압축 해제 → 프로젝트에 드래그 앤 드롭 → 링킹(Linking) 설정.
+
+치명적 단점: 어떤 라이브러리의 몇 버전을 썼는지 기록이 남지 않음. 업데이트 시 다시 처음부터 반복.
+
+[혁신의 시작: Podfile과 Lock의 등장 (CocoaPods)]
+
+Podfile (선언형 관리):
+
+"파일을 옮기는 행위" 대신 "나는 이 라이브러리가 필요해"라고 글로 적는 방식(pod 'Alamofire', '~> 4.0')으로 패러다임이 바뀝니다.
+
+이 파일 하나만 있으면 pod install 명령어로 수십 개의 라이브러리를 한 번에 세팅할 수 있게 되었습니다.
+
+Podfile.lock (버전의 동결):
+
+~> 4.0이라고 적으면 4.1이 받아질 수도 있고 4.2가 받아질 수도 있습니다. 협업 시 팀원 간 버전이 다르면 버그가 발생합니다.
+
+Podfile.lock은 **"지금 설치된 정확한 버전(4.1.2)"**을 기록하여, 모든 팀원이 단 하나의 바이트도 다르지 않은 동일한 라이브러리 파일을 갖게 보장해 줍니다. (Single Source of
+Truth)
+
+[새로운 고통: 실행 환경의 불일치 (Ruby & Bundler)]
+
+하지만 Podfile 자체는 완벽했지만, 정작 이 파일을 읽어서 설치해 주는 도구(CocoaPods)와 언어(Ruby)의 버전이 관리되지 않았습니다.
+
+
+
+rbenv: 프로젝트별로 Ruby 버전을 고정 (.ruby-version).
+
+Bundler: 프로젝트별로 CocoaPods(Gem) 버전을 고정 (Gemfile).
+
+팀원 모두가 100% 동일한 환경에서 의존성을 설치하게 됨.
+
+5. 결론: 환경도 코드다 (Environment as Code)
+이제 iOS 개발 환경은 단순한 '설치'의 영역을 넘어 **'코드(Code)'**의 영역으로 들어왔습니다.
+
+Xcode 버전 → .xcode-version
+
+프로젝트 설정 → Project.swift (Tuist)
+
+라이브러리 도구 → Gemfile, .ruby-version
+
+이러한 도구들의 발전 덕분에, 우리는 신규 입사자가 오더라도 명령어 한 줄(make install 등)로 완벽하게 동일한 개발 환경을 복제해낼 수 있게 되었습니다. 이것이 우리가 복잡한 도구들을 배우고 적용해야 하는
+이유입니다.
