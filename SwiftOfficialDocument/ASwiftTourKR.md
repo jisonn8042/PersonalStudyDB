@@ -162,3 +162,51 @@ for score in individualScores {
 print(teamScore)
 // Prints "11".
 ```
+- #### if 문에서는 조건부가 반드시 Boolean으로 표현되어야 합니다</br>if score { ... }와 같은 코드는 암시적으로 0과 비교하는 것이 아니라 오류를 의미합니다.
+
+- #### 🌟조건을 기준으로 값을 선택하기위해 할당의 동등 사인(=) 뒤나 return 뒤에 if 또는 switch를 작성할 수 있습니다.
+
+```swift
+let scoreDecoration = if teamScore > 10 {
+    "🎉"
+} else {
+    ""
+}
+print("Score", teamScore, scoreDecoration)
+  // Prints "Score: 11🎉".
+```
+
+<b>1. 구문(Statement)과 표현식(Expression)의 본질적 차이</b>
+
+프로그래밍에서 '구문'은 작업을 수행하라는 명령(예: 반복해라, 분기해라)이며 자체적인 값을 가지지 않습니다.</br>
+반면 '표현식'은 평가(Evaluation) 과정을 거쳐 단일한 '값'으로 치환되는 코드입니다.</br>
+과거의 if와 switch는 오직 구문으로만 동작했으나, 이제는 컴파일러가 블록 내부의 결과를 하나의 값으로 치환하는 표현식으로 처리할 수 있게 되었습니다.
+
+<b>2. 할당의 동등 사인(=) 뒤에 작성 (직접 할당)</b>
+
+과거에는 조건에 따라 최종 값을 결정하려면 가변 변수(var)를 선언해야 했습니다.</br>
+이는 변수의 상태가 블록 외부에서도 예기치 않게 변경될 수 있는 부작용을 내포합니다.
+
+<b>과거 방식 (가변 변수 사용)</b>
+
+```swift
+var networkStatus: String // var 선언 강제
+if statusCode == 200 {
+    networkStatus = "Success"
+} else {
+    networkStatus = "Failure"
+}
+```
+<code>if</code>나 <code>switch</code>를 할당 연산자(=) 우측에 직접 배치할 수 있습니다.</br>
+블록 내부의 마지막 줄이 해당 블록의 결과값으로 평가되어 좌측의 상수(let)에 즉각 할당됩니다.
+
+<b>현대적 방식 (할당 사인 뒤에 if 작성)</b>
+
+```swift
+let networkStatus = if statusCode == 200 {
+    "Success"
+} else {
+    "Failure"
+}
+```
+상태 변경(Mutation)을 원천 차단하여 코드의 예측 가능성을 높입니다. 복잡한 삼항 연산자(<code>조건 ? 참 : 거짓</code>)를 사용하지 않고도 가독성과 안정성을 동시에 확보하는 엔지니어링적 최적화입니다.
