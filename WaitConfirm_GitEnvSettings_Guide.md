@@ -1,0 +1,446 @@
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<h1>macOS環境でのGit、GitHub環境管理ガイド</h1>
+
+<hr>
+
+<p><strong>読む前に</strong></p>
+
+<p>このガイドは全体的な流れを説明する為、各パートについて詳しい内容まで説明していません。例えば、sshキーの生成する時パスワードの設定とか、初めてクローンする時、許可の確認など、については説明していません。
+    <br>途中でわからないことがあれば、Googleなどで調べてみてください。
+    <br>(後で時間がある時付録に詳しい内容までどんどん追加する予定です。)
+</p>
+
+<br>
+<br>
+
+<h2>目次</h2>
+
+<hr>
+
+<h3><a href="#ssh設定-1つのGitHubアカウントを連携する場合">Ⅰ. ssh設定-1つのGitHubアカウントを連携する場合</a></h3>
+
+<ol>
+    <li><a href="#Ⅰ-sshキー生成">sshキー生成</a></li>
+    <li><a href="#Ⅰ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
+    <li><a href="#Ⅰ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
+    <li><a href="#Ⅰ-連携確認">リポジトリをクローンして連携確認</a></li>
+    <li><a href="#Ⅰ-注意点">注意点</a></li>
+</ol>
+
+<h3><a href="#ssh設定-複数のGitHubアカウントを連携する場合">Ⅱ. ssh設定-複数のGitHubアカウントを連携する場合</a></h3>
+
+<ol>
+    <li><a href="#Ⅱ-sshキー生成">sshキー生成</a></li>
+    <li><a href="#Ⅱ-~/.ssh/config生成・設定">~/.ssh/config生成・設定</a></li>
+    <li><a href="#Ⅱ-GitHubにsshキーを登録">GitHubにsshキーを登録</a></li>
+    <li><a href="#Ⅱ-リポジトリをクローンして連携確認">リポジトリをクローンして連携確認</a></li>
+    <li><a href="#Ⅱ-注意点">注意点</a></li>
+</ol>
+
+
+
+<h3><a href="#Ⅳ-付録">Ⅳ. 付録</a></h3>
+
+<ul>
+    <li><a href="#Ⅳ-追加予定_sshキー生成方法(詳細説明)">追加予定_sshキー生成方法(詳細説明)</a></li>
+</ul>
+
+<br>
+<br>
+
+<h2 id="ssh設定-1つのGitHubアカウントを連携する場合">Ⅰ. ssh設定-1つのGitHubアカウントを連携する場合</h2>
+
+<hr>
+
+<h3 id="Ⅰ-sshキー生成">1. sshキー生成</h3>
+
+<p>GitHubと連携するためのsshキーを生成します。</p>
+
+<p><strong>生成</strong></p>
+
+<pre><code># -f を活用し任意の名前でキーを生成します。
+ssh-keygen -t ed25519 -C "[GitHubメールアドレス]" -f ~/.ssh/id_ed25519_[任意の名前]
+
+#入力例
+ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/id_ed25519_personal-github
+</code></pre>
+
+<p><strong>確認</strong></p>
+
+<pre><code>#コマンドを入力時[任意の名前]になっているファイルの有無を確認します。
+ls -al ~/.ssh
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="Ⅰ-~/.ssh/config生成・設定">2. ~/.ssh/config生成・設定</h3>
+
+<p>~/.ssh/configファイルを生成・設定します。</p>
+
+<p><strong>設定</strong></p>
+
+<pre><code>#~/.sshにディレクトリ移動
+cd ~/.ssh
+
+#~/.ssh/configファイルを生成
+touch config
+
+#configファイルを開く
+open config
+
+#~/.ssh/configファイルを設定
+Host [別名]                                          # 別名
+    HostName github.com                              # ホスト名
+    User git                                         # User名
+    IdentityFile ~/.ssh/id_ed25519_[任意の名前]      # 作成したsshキー
+    UseKeychain yes                                  # キーチェインを使用する
+    AddKeysToAgent yes                               # エージェントにキーを追加する
+
+#入力例
+# ----------------------------
+# 1. 個人用 アカウント (alias(別名)を使用)
+# ----------------------------
+Host personal-github                      
+    HostName github.com                   
+    User git                              
+    IdentityFile ~/.ssh/id_ed25519_personal-github   # 個人アカウント用生成したキー
+    UseKeychain yes                       
+    AddKeysToAgent yes 
+
+</code></pre>
+
+<br>
+
+<p>さらにconfigファイルは、セキュリティのため権限を制限する必要があります。</p>
+
+<p><strong>設定</strong></p>
+<pre><code>#~/.ssh/configファイルの権限を変更
+chmod 600 ~/.ssh/config                              # 600:所有者のみ読み書きができる
+</code></pre>
+
+<p><strong>確認</strong></p>
+<pre><code>#~/.ssh/configファイルの権限を確認
+ls -al ~/.ssh/config                                 # 結果の最初の部分に-rw-------と表示されていることを確認
+
+#結果例
+-rw-------  1   staff  1024  12  4 15:42 ~/.ssh/config
+</code></pre>
+
+<br>
+<br>
+
+
+<h3 id="Ⅰ-GitHubにsshキーを登録">3. GitHubにsshキーを登録</h3>
+
+<p>GitHubにsshキーを登録します。</p>
+
+<p><strong>設定</strong></p>
+
+<p>1. sshキーをコピーします。</p>
+
+<pre><code>#GitHubにsshキーを登録
+cat ~/.ssh/id_ed25519_[任意の名前].pub | pbcopy
+
+#入力例
+cat ~/.ssh/id_ed25519_personal-github.pub | pbcopy
+</code></pre>
+
+<p>2. GitHubのSettingsに移動して、SSH and GPG keysに移動します。</p>
+
+<p>3. "New SSH key"を押して、タイトルとキーを入力します。</p>
+
+<p>4. タイトルは任意で、キーはコピーしたものを貼り付けます。</p>
+
+<p>5. "Add SSH key"を押します。</p>
+
+<br>
+<br>
+
+<h3 id="Ⅰ-リポジトリをクローンして連携確認">4. リポジトリをクローンして連携確認</h3>
+
+<p>リポジトリをクローンして連携確認を行います。
+    <br>クローンする時、ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。
+</p>
+
+<p><strong>変更前</strong></p>
+
+<pre><code>git@github.com~
+
+# 変更前例
+git@github.com~
+</code></pre>
+
+<p><strong>変更後</strong></p>
+
+<pre><code>git@[alias(別名)]~
+
+# 変更後例
+git@personal-github~
+</code></pre>
+
+<br>
+
+<p><strong>確認</strong></p>
+
+<pre><code>git clone [変更後repository ssh URL]    
+
+# 入力例
+git clone git@personal-github~
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="Ⅰ-注意点">5.注意点</h3>
+
+<h3>ssh URLの書き方</h3>
+
+<p>ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。</p>
+
+<p><strong>変更例</strong></p>
+
+<pre><code>git@[alias(別名)]~
+
+# 変更前例
+git@github.com~
+
+# 変更後例
+git@personal-github~
+</code></pre>
+
+<br>
+<br>
+
+<h2 id="ssh設定-複数のGitHubアカウントを連携する場合">Ⅱ. ssh設定-複数のGitHubアカウントを連携する場合</h2>
+
+<hr>
+
+<p>
+    <br>sshは元々サーバ管理者が(Admin)がサーバに入る為に作ったプロトコルです。
+
+    <br>パソコンはサーバと通信する1つのキーだけ持っていれば十分でした。
+
+    <br>しかし、この仕様ではGitHubに対して複数のgithubアカウントを連携する事ができません。
+
+    <br>この課題を解決する為、複数のGitHubアカウントに対し個別に適切なキーを渡すように設定する必要があります。
+
+    <br>この章では、1章とほとんど同じですが、複数のGitHubアカウントを正しく連携する為の~/.ssh/configファイルの設定や、aliasを活用したssh URLの書き方を追加して説明します。
+</p>
+
+<br>
+
+<h3 id="Ⅱ-sshキー生成">1. sshキー生成</h3>
+
+<p>GitHubと連携するためのsshキーを生成します。</p>
+
+<p><strong>生成</strong></p>
+
+<pre><code># -f を活用し任意の名前でキーを生成します。
+ssh-keygen -t ed25519 -C "[GitHub用メールアドレス]" -f ~/.ssh/id_ed25519_[任意の名前]
+
+#入力例
+ssh-keygen -t ed25519 -C "example@example.com" -f ~/.ssh/id_ed25519_different-github
+</code></pre>
+
+<p><strong>確認</strong></p>
+
+<pre><code>#コマンドを入力時任意の名前になっているファイルの有無を確認します。
+ls -al ~/.ssh
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="Ⅱ-~/.ssh/config生成・設定">2. ~/.ssh/config生成・設定</h3>
+
+<p>~/.ssh/configファイルを生成・設定します。</p>
+
+<p>複数のアカウントを連携している場合、元々sshは1つのユーザに対して1つのキーを活用するようになっています。
+    <br>なので複数のキーを使用するには状況によってこのキーを使ってくださいという設定が必要です。
+
+    <br><br>状況によって使うキーに関して書いて置くファイルがconfigファイルで、それを実現できるようにする設定がIdentitiesOnly yesです。
+    <br>ここではconfigファイルの作成方法やIdentitiesOnly yes設定の仕方について説明します。
+</p>
+
+<p><strong>設定</strong></p>
+
+<pre><code>#~/.sshにディレクトリ移動
+cd ~/.ssh
+
+#~/.ssh/configファイルを生成
+touch config
+
+#configファイルを開く
+open config
+
+#~/.ssh/configファイルを設定
+Host [別名]                                          # 別名
+    HostName github.com                              # ホスト名
+    User git                                         # User名
+    IdentityFile ~/.ssh/id_ed25519_[任意の名前]      # 作成したsshキー
+    IdentitiesOnly yes                               # 同じUser名に対して異なるsshキーを使用する
+    UseKeychain yes                                  # キーチェインを使用する
+    AddKeysToAgent yes                               # エージェントにキーを追加する
+
+#入力例
+# ----------------------------
+# 1. 会社用 アカウント (基本値として設定する場合が多い)
+# ----------------------------
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_work              # 会社アカウント用生成したキー
+    IdentitiesOnly yes  
+    UseKeychain yes
+    AddKeysToAgent yes
+
+# ----------------------------
+# 2. 個人用 アカウント (alias(別名)を使用)
+# ----------------------------
+Host personal-github                      
+    HostName github.com                   
+    User git                              
+    IdentityFile ~/.ssh/id_ed25519_personal-github   # 個人アカウント用生成したキー
+    IdentitiesOnly yes                    
+    UseKeychain yes                       
+    AddKeysToAgent yes 
+
+# ----------------------------
+# 3. 他のアカウント (alias(別名)を使用)
+# ----------------------------
+Host different-github                     
+    HostName github.com                   
+    User git                              
+    IdentityFile ~/.ssh/id_ed25519_different-github  # 他のアカウント用で生成したキー
+    IdentitiesOnly yes                    
+    UseKeychain yes                       
+    AddKeysToAgent yes 
+</code></pre>
+
+<br>
+
+<p>さらにconfigファイルは、セキュリティのため権限を制限する必要があります。</p>
+
+<p><strong>設定</strong></p>
+<pre><code>#~/.ssh/configファイルの権限を変更
+chmod 600 ~/.ssh/config                              # 600:所有者のみ読み書きができる
+</code></pre>
+
+<p><strong>確認</strong></p>
+<pre><code>#~/.ssh/configファイルの権限を確認
+ls -al ~/.ssh/config                                 # 結果の最初の部分に-rw-------と表示されていることを確認
+
+#結果例
+-rw-------  1   staff  1024  12  4 15:42 ~/.ssh/config
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="Ⅱ-GitHubにsshキーを登録">3. GitHubにsshキーを登録</h3>
+
+<p>GitHubにsshキーを登録します。</p>
+
+<p><strong>設定</strong></p>
+
+<pre><code>#GitHubにsshキーを登録
+cat ~/.ssh/id_ed25519_[任意の名前].pub | pbcopy
+
+#入力例
+cat ~/.ssh/id_ed25519_different-github.pub | pbcopy
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="Ⅱ-リポジトリをクローンして連携確認">4. リポジトリをクローンして連携確認</h3>
+
+<p>リポジトリをクローンして連携確認を行います。
+    <br>クローンする時、ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。
+</p>
+
+<p><strong>変更前</strong></p>
+
+<pre><code>git@github.com~
+
+# 変更前例
+git@github.com~
+</code></pre>
+
+<p><strong>変更後</strong></p>
+
+<pre><code>git@[alias(別名)]~
+
+# 変更後例
+git@different-github~
+</code></pre>
+
+<br>
+
+<p><strong>確認</strong></p>
+
+<pre><code>git clone [変更後repository ssh URL]    
+
+# 入力例
+git clone git@different-github~
+</code></pre>
+
+<br>
+<br>
+
+<h3 id="Ⅱ-注意点">5. 注意点</h3>
+
+<h3>ssh URLの書き方</h3>
+
+<p>ssh URLの前の <code> github.com </code> 部分を通信するアカウントに合うalias(別名)に書き換えてください。</p>
+
+<p><strong>変更例</strong></p>
+
+<pre><code>git@[alias(別名)]~
+
+# 変更前例
+git@github.com~
+
+# 変更後例
+git@different-github~
+</code></pre>
+
+<br>
+
+<h3>ローカルGit設定</h3>
+
+<p>
+    ローカルGit設定は、コミット履歴に正しい情報を表示するための設定を行います。
+    <br>設定はプロジェクトのルートディレクトリで行います。
+</p>
+
+<p><strong>設定</strong></p>
+
+<pre><code>#ローカルGit設定
+git config --local user.name [名前]
+git config --local user.email [GitHubメールアドレス]
+
+#入力例
+git config --local user.name example
+git config --local user.email example@example.com
+</code></pre>
+
+<br>
+
+<p><strong>確認</strong></p>
+
+<pre><code>#Git設定確認
+git config --local user.name
+git config --local user.email
+</code></pre>
+
+<br>
+<br>
+
+<h2 id="Ⅳ-付録">Ⅳ. 付録</h2>
+
+<h3 id="Ⅳ-追加予定_sshキー生成方法(詳細説明)">追加予定_sshキー生成方法(詳細説明)</h3>
