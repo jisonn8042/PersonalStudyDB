@@ -19,6 +19,7 @@
     <li><a href="#作成設定_CocoaPodsバージョン">CocoaPodsバージョン</a></li>
     <li><a href="#作成設定_iOSライブラリ">iOSライブラリ</a></li>
     <li><a href="#作成設定_macOSのバージョン">macOSのバージョン</a></li>
+    <li><a href="#作成設定_環境適用">xprojectファイル</a></li>
 </ol>
 
 <h3><a href="#環境適用">Ⅱ. 環境適用</a></h3>
@@ -30,6 +31,7 @@
     <li><a href="#適用_CocoaPodsバージョン">CocoaPodsバージョン</a></li>
     <li><a href="#適用_iOSライブラリ">iOSライブラリ</a></li>
     <li><a href="#適用_macOSのバージョン">macOSのバージョン</a></li>
+    <li><a href="#適用_環境適用">xprojectファイル</a></li>
 </ol>
 
 <h3><a href="#付録">Ⅲ. 付録</a></h3>
@@ -46,6 +48,7 @@
     <li><a href="#付録_注意事項">注意事項</a></li>
     <li><a href="#付録_GemfileとPodfile">GemfileとPodfile</a></li>
     <li><a href="#付録_.lockファイル">.lockファイル</a></li>
+    <li><a href="#付録_xprojectファイル">xprojectファイルとは</a></li>
     <li><a href="#付録_SwiftLint">SwiftLint</a></li>
     <li><a href="#付録_Fastlane">Fastlane</a></li>
     <li><a href="#付録_ActiveSupport">ActiveSupport</a></li>
@@ -53,7 +56,7 @@
 
 <br>
 
-<p><strong>このガイドはXcode、Homebrew、rbenv、ruby-build、rbenvでインストールしたプロジェクトで使用するバージョンのRuby、bundler、cocoapodsがインストールされていることを想定した上に作成されています。</strong>
+<p><strong>このガイドはXcode、Homebrew、xcodes、rbenv、ruby-build、rbenvでインストールしたプロジェクトで使用するバージョンのRuby、bundler、cocoapodsがインストールされていることを想定した上に作成されています。</strong>
 </p>
 <p><strong>もし、これらのツールがインストールされていない場合は、インストールしてから進んでください。</strong></p>
 
@@ -102,7 +105,7 @@
 <p><strong>作成方法</strong><br>.xcode-versionと言う名のファイルを作成し、ファイルの中に使用するXcodeのバージョンを手打ちで入力して下さい。</p>
 
 <p><strong>作成形式</strong><br>[バージョン]</p>
-
+1
 <em>※XcodeのバージョンはXcodeを開いて左上にあるXcodeをクリックしてAbout Xcodeから確認できます。</em>
 
 <p><strong>作成例</strong></p>
@@ -112,6 +115,8 @@
         16.4 (16F6)
     </code>
 </pre>
+
+<p><em>ファイルの最初に.がいるファイルは隠しファイルなので、Finder上に表示するにはShift + Command + .を押しと見えます。</em></p>
 
 <br>
 
@@ -136,7 +141,7 @@
     </code>
 </pre>
 
-<p><strong>固定確認方法</strong><br><code>ruby -v</code>コマンドを実行した結果と.ruby-versionファイルの内容を確認して、作成内容が正常に適用されているか確認できます。</p>
+<p><strong>固定確認方法</strong><br><code>ruby -v</code>コマンドを実行した結果と.ruby-versionファイルの内容が一致するか確認して、適用内容が正常に適用されているか確認できます。</p>
 
 <br>
 
@@ -148,7 +153,7 @@
 
 <p><strong>作成内容</strong><br>使用するCocoaPodsのバージョン</p>
 
-<p><strong>作成方法</strong><br><code>bundle init</code>コマンドを実行するとGemfileが自動的に作成されます。<br>そのGemfileの中に使用したいCocoaPodsのバージョンを手打ちで入力して下さい。<br><code>bundle install</code>コマンドを実行することでGemfile.lockが自動的に作成されます。
+<p><strong>作成方法</strong><br><code>bundle exec pod --version</code>コマンドを実行した結果とGemfileの内に書いているcocoapodsのバージョンが一致するか確認して、適用内容が正常に適用されているか確認できます。
 </p>
 
 <p><strong>作成形式</strong><br>gem "cocoapods", "[バージョン]"</p>
@@ -161,7 +166,7 @@
     </code>
 </pre>
 
-<p><strong>固定確認方法</strong><br><code>bundle exec pod --version</code>コマンドを実行した結果とPodfileの内に書いたcocoapodsのバージョンを確認して、作成内容が正常に適用されているか確認できます。
+<p><strong>固定確認方法</strong><br><code>bundle exec pod --version</code>コマンドを実行した結果とGemfile.lockの内に書いたcocoapodsのバージョンを確認して、作成内容が正常に適用されているか確認できます。
 </p>
 
 <br>
@@ -186,6 +191,9 @@
         pod "Alamofire", "5.4.4"
     </code>
 </pre>
+
+<p><strong>固定確認方法</strong><br>Podfile.lockの内容とPodfileの内に書いたライブラリのバージョンが一致するか確認して、作成内容が正常に適用されているか確認できます。
+</p>
 
 <br>
 
@@ -230,14 +238,12 @@
 
 <h3 id="適用_Xcodeバージョン">2. Xcodeバージョン</h3>
 
-<p><strong>一致確認</strong><br>Xcodeを開いて左上にあるXcodeをクリックしてAbout Xcodeを押して確認した内容と、.xcode-versionファイルの内容が一致するか確認できます。</p>
+<p><strong>一致確認</strong><br><code>xcodes list</code>コマンドを実行して、選択されているXcodeのバージョンを確認します。</p>
 
 <p><strong>適用方法</strong>
-    <br>Xcodeバージョンの適用方法についてここでは説明していませんが、Xcodeのバージョンを管理してくれるシステムツールであるXcodesがあります。
-    <br>Xcodesをダウンロードしてインストールしてから、Xcodesを起動して、必要なXcodeバージョンをインストールして下さい。
+    <br>.xcode-versionファイルを確認し、必要なXcodeバージョンを<code>xcodes install [バージョン]</code>コマンドを実行してインストールします。
+    <br>インストール後、<code>xcodes select [バージョン]</code>コマンドを実行して、.xcode-versionファイルに記述されているXcodeバージョンを選択します。
 </p>
-
-<p><em>ファイルの最初に.がいるファイルは隠しファイルなので、Finder上に表示するにはShift + Command + .を押しと見えます。</em></p>
 
 <p><em>Xcodeのバージョンを複数インストールする場合は、他のバージョンと競合しないように注意してください。（Xcodeのバージョンを管理してくれるシステムツールであるXcodesの使用をお勧めします。）</em></p>
 
@@ -249,7 +255,7 @@
     コマンドを実行してインストールします。
 </p>
 
-<p><strong>適用確認</strong><br><code>ruby -v</code>コマンドを実行した結果と.ruby-versionファイルの内容が一致するか確認して、適用内容が正常に適用されているか確認できます。
+<p><strong>適用確認</strong><br><code>ruby -v</code>コマンドを実行した結果と.ruby-versionファイルの内容が一致するか確認して、正常に適用されているか確認できます。
 </p>
 
 <br>
@@ -258,7 +264,7 @@
 
 <p><strong>適用方法</strong><br><code>bundle install</code>コマンドを実行してインストールします。</p>
 
-<p><strong>適用確認</strong><br><code>bundle exec pod --version</code>コマンドを実行した結果とGemfileの内に書いているcocoapodsのバージョンが一致するか確認して、適用内容が正常に適用されているか確認できます。
+<p><strong>適用確認</strong><br><code>bundle exec pod --version</code>コマンドを実行した結果とGemfile.lockの内に書いているcocoapodsのバージョンが一致するか確認して、正常に適用されているか確認できます。
 </p>
 
 <br>
@@ -267,11 +273,13 @@
 
 <p><strong>適用方法</strong><br><code>bundle exec pod install</code>コマンドを実行してインストールします。</p>
 
+<p><strong>適用確認</strong><br>xcodeでPodsプロジェクトを開いてTargetsにPodfileに記述されているライブラリが含まれているか確認して、正常に適用されているか確認できます。</p>
+
 <br>
 
 <h3 id="適用_macOSのバージョン">6. macOSのバージョン</h3>
 
-<p><strong>一致確認</strong><br><code>sw_vers</code>コマンドを実行した結果とREADME.mdファイルに書いているmacOSのバージョンが一致するか確認して、適用内容が正常に適用されているか確認できます。
+<p><strong>一致確認</strong><br><code>sw_vers</code>コマンドを実行した結果とREADME.mdファイルに書いているmacOSのバージョンが一致するか確認して、正常に適用されているか確認できます。
 </p>
 
 <p><strong>適用方法</strong><br>macOSバージョンの適用方法について説明していません</p>
