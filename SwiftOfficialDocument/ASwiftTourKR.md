@@ -210,3 +210,55 @@ let networkStatus = if statusCode == 200 {
 }
 ```
 상태 변경(Mutation)을 원천 차단하여 코드의 예측 가능성을 높입니다. 복잡한 삼항 연산자(<code>조건 ? 참 : 거짓</code>)를 사용하지 않고도 가독성과 안정성을 동시에 확보하는 엔지니어링적 최적화입니다.
+
+<b>3. return 뒤에 작성 (직접 반환)</b>
+
+함수나 연산 프로퍼티 내에서 조건에 따른 결과를 반환할 때, 각 분기마다 return 키워드를 기계적으로 중복 작성할 필요가 없어졌습니다.
+
+<b>과거 방식 (반복적 return 사용)</b>
+
+```swift
+func getDirection(from degree: Int) -> String {
+    switch degree {
+    case 0...90: 
+        return "1사분면" // 분기마다 return 명시
+    case 91...180: 
+        return "2사분면"
+    default: 
+        return "기타"
+    }
+}
+```
+
+<b>현대적 방식 (return 뒤에 switch 작성)</b>
+
+```swift
+func getDirection(from degree: Int) -> String {
+    return switch degree { // return 키워드 뒤에 switch를 직접 작성
+    case 0...90: "1사분면"
+    case 91...180: "2사분면"
+    default: "기타"
+    }
+}
+```
+switch 블록 전체가 거대한 하나의 값으로 평가되므로, 가장 바깥쪽에서 단 한 번의 <code>return</code>으로 전체 구조를 반환할 수 있습니다. 코드의 목적이 "특정 값을 반환하는 것"임이 명확해집니다.
+
+- #### 🌟"값이 없을 수도 있는 상황을 처리하기 위해 if와 let을 함께 사용할 수 있습니다. 이러한 값은 옵셔널(optional)로 표현됩니다. 옵셔널 값은 실제 값을 포함하고 있거나, 값이 없음을 나타내는 nil을 포함합니다. 값의 타입 뒤에 물음표(?)를 작성하여 해당 값을 옵셔널로 지정합니다."(if let 구문)
+
+```swift
+var optionalString: String? = "Hello"
+print(optionalString == nil)
+// Prints "false".
+
+
+var optionalName: String? = "John Appleseed"
+var greeting = "Hello!"
+if let name = optionalName {
+    greeting = "Hello, \(name)"
+}
+```
+
+Swift의 if let 구문은 옵셔널(Optional) 변수의 값이 nil인지 아닌지 검사하여, nil이 아닐 때만 안전하게 내부 값을 언래핑(Unwrapping)해 사용하는 옵셔널 바인딩(Optional Binding) 방식입니다.</br>
+if 문 내에서만 유효한 지역변수로 값을 꺼내며, nil일 경우 else 블록을 수행합니다.</br>
+옵셔널 값을 처리하는 다른 방법은 ?? 연산자를 사용하여 기본값을 제공하는 것입니다. 옵셔널 값이 없다면 기본값이 대신 사용됩니다.
+
