@@ -262,3 +262,152 @@ Swift의 if let 구문은 옵셔널(Optional) 변수의 값이 nil인지 아
 if 문 내에서만 유효한 지역변수로 값을 꺼내며, nil일 경우 else 블록을 수행합니다.</br>
 옵셔널 값을 처리하는 다른 방법은 ?? 연산자를 사용하여 기본값을 제공하는 것입니다. 옵셔널 값이 없다면 기본값이 대신 사용됩니다.
 
+- #### 스위치(switch)는 모든 종류의 데이터와 다양한 비교 작업을 지원합니다 — 스위치는 정수(integer) 및 동등성 비교로 제한되지 않습니다.
+
+```swift
+let vegetable = "red pepper"
+switch vegetable {
+case "celery":
+    print("Add some raisins and make ants on a log.")
+case "cucumber", "watercress":
+    print("That would make a good tea sandwich.")
+case let x where x.hasSuffix("pepper"):
+    print("Is it a spicy \(x)?")
+default:
+    print("Everything tastes good in soup.")
+}
+// Prints "Is it a spicy red pepper?".
+```
+*C, C++, Java 등 과거의 언어들에서는 switch 구문에 default를 생략해도 정상적으로 실행됩니다. </br>
+만약 일치하는 case가 없다면, 시스템은 아무 작업도 수행하지 않고 조건문을 조용히 빠져나갑니다.</br>
+Swift는 이를 심각한 시스템 결함 유발 요소로 간주합니다. 평가 대상이 가질 수 있는 모든 범위에 대해 명시적인 대처가 없다면, 컴파일러는 다음과 같이 명확하게 틀렸다고 지적하고 수정을 요구합니다.*
+
+```
+case let x where x.hasSuffix("pepper")
+```
+<code>*let x*</code>는 비교를 하는 것이 아니라, 현재 평가 중인 값("red pepper")을 새로운 지역 상수 x에 무조건 대입하겠다는 선언입니다. 이 시점에서 x는 "red pepper"라는 문자열 데이터를 갖게 됩니다.
+
+*default가 생략 가능한 유일한 상황</br>
+평가 대상이 가질 수 있는 경우의 수가 유한하고, 이를 case로 100% 명시했다면 default 블록은 작성할 필요가 없으며, 오히려 작성해서는 안 됩니다. 가장 대표적인 사례가 열거형(Enum)입니다.*
+
+```swift
+enum Direction { case north, south, east, west }
+let dir = Direction.north
+
+// 모든 케이스를 처리했으므로 default가 없어도 컴파일 성공
+switch dir {
+case .north: print("북")
+case .south: print("남")
+case .east: print("동")
+case .west: print("서")
+}
+```
+
+- #### for-in을 사용하여 각 키-값 쌍에 사용할 이름의 쌍을 제공하여 딕셔너리의 항목을 조회합니다. 딕셔너리는 순서가 없는 컬렉션(collection)이므로 키와 값은 임의의 순서로 조회됩니다.
+
+```swift
+let interestingNumbers = [
+    "Prime": [2, 3, 5, 7, 11, 13],
+    "Fibonacci": [1, 1, 2, 3, 5, 8],
+    "Square": [1, 4, 9, 16, 25],
+]
+var largest = 0
+for (_, numbers) in interestingNumbers {
+    for number in numbers {
+        if number > largest {
+            largest = number
+        }
+    }
+}
+print(largest)
+// Prints "25".
+```
+
+딕셔너리를 순회할 때마다 하나의 요소를 가져와, 컴파일러가 알아서 첫 번째 요소는 userName 상수에, 두 번째 요소는 score 상수에 안전하게 할당(Binding)합니다.
+
+```swift
+let userScores = ["Alice": 85, "Bob": 92, "Charlie": 78]
+
+// (key, value) 형태의 튜플 패턴 매칭을 통한 데이터 해체 및 바인딩
+for (userName, score) in userScores {
+    print("\(userName): \(score)")
+}
+```
+
+🌟코드를 작성할 때 딕셔너리에 데이터를 A, B, C 순서로 삽입했다고 해서, 화면 출력이나 데이터 처리도 A, B, C 순서로 진행된다는 보장은 없습니다.
+
+순서가 필요하다면 딕셔너리의 키나 값을 추출하여 명시적으로 정렬을 수행한 뒤, 순서가 보장되는 배열(Array) 형태로 변환하여 순회해야 합니다.
+
+```swift
+// 순서를 보장하기 위한 명시적 정렬 처리
+for userName in userScores.keys.sorted() {
+    print("\(userName): \(userScores[userName]!)") // 항상 딕셔너리 키의 알파벳 순서대로 출력됨
+}
+```
+
+- #### 조건이 바뀔 때까지 코드의 블록을 반복하려면 while을 사용해야 합니다. 대신 루프의 조건이 끝에 있을 수 있으므로 적어도 한번은 루프가 실행되도록 합니다.
+
+*번역이 헷갈리게 된거 같다.</br>
+아마 이내용을 얘기하고 싶었던거 같다.</br>*
+while은 조건을 평가한 후 루프 본문을 실행합니다.</br>
+반면 repeat-while 루프는 루프 본문을 실행한 후 조건을 평가합니다.
+
+```swift
+var n = 2
+while n < 100 {
+    n *= 2
+}
+print(n)
+// Prints "128".
+
+
+var m = 2
+repeat {
+    m *= 2
+} while m < 100
+print(m)
+// Prints "128".
+```
+
+- #### 인덱스의 범위를 만들기 위해선 ..<을 사용하여 루프에 인덱스를 만들 수 있습니다.
+
+가장 상위 값을 생략하는 범위를 만들기 위해 ..<을 사용하고 포함하려면 ...을 사용합니다.
+
+```swift
+var total = 0
+for i in 0..<4 {
+    total += i
+}
+print(total)
+// Prints "6".
+```
+
+</br>
+
+## 함수와 클로저 (Functions and Closures)
+
+- #### 함수를 선언하려면 func을 사용합니다. 소괄호 안에 인자의 리스트와 함수의 이름으로 호출합니다. 함수의 반환 타입(return type)에서 매개변수(parameter) 이름과 타입을 구분하기 위해 -> 을 사용합니다.
+
+*번역이 헷갈리게 된거 같다.</br>
+아마 이내용을 얘기하고 싶었던거 같다.</br>*
+함수를 선언할 때는 func 키워드를 사용합니다. 함수를 호출할 때는 함수 이름 바로 뒤에 소괄호를 붙이고, 그 안에 인자(Argument) 목록을 작성합니다. 함수의 매개변수(입력) 영역과 반환 타입(출력) 영역을 명확히 분리하기 위해 -> 기호를 사용합니다.
+
+```swift
+func greet(person: String, day: String) -> String {
+  return "Hello \(person), today is \(day)."
+}
+greet(person: "Bob", day: "Tuesday")
+```
+
+
+## 객체와 클래스 (Objects and Classes)
+
+## 열거형과 구조체 (Enumerations and Structures)  
+
+## 동시성 (Concurrency)
+
+## 프로토콜과 확장 (Protocols and Extensions)
+
+## 오류 처리 (Error Handling)
+
+## 제네릭 (Generics)
