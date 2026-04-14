@@ -1,7 +1,7 @@
 # Swift 둘러보기
 
 Swift에서 이 코드의 라인은 완벽한 프로그램입니다. 문자 출력 또는 문자열 처리와 같은 기능을 위한 별도의 라이브러리를 가져올 필요는 없습니다.</br>
-전역 범위로 작성한 코드는 프로그램의 전체에서 사용되기 때문에 main() 함수가 필요하지 않습니다.</br>
+전역 범위로 작성한 코드는 프로그램의 전체에서 사용되기 때문에 main() 함수가 필요하지 않습니다.</br>
 모든 구문에 끝에 세미콜론을 작성할 필요도 없습니다.
 
 ## 세부설명
@@ -164,7 +164,7 @@ print(teamScore)
 ```
 - #### if 문에서는 조건부가 반드시 Boolean으로 표현되어야 합니다</br>if score { ... }와 같은 코드는 암시적으로 0과 비교하는 것이 아니라 오류를 의미합니다.
 
-- #### 🌟조건을 기준으로 값을 선택하기위해 할당의 동등 사인(=) 뒤나 return 뒤에 if 또는 switch를 작성할 수 있습니다.
+- #### 🌟조건을 기준으로 값을 선택하기위해 할당의 동등 사인(=) 뒤나 return 뒤에 if 또는 switch를 작성할 수 있습니다.
 
 ```swift
 let scoreDecoration = if teamScore > 10 {
@@ -258,8 +258,8 @@ if let name = optionalName {
 }
 ```
 
-Swift의 if let 구문은 옵셔널(Optional) 변수의 값이 nil인지 아닌지 검사하여, nil이 아닐 때만 안전하게 내부 값을 언래핑(Unwrapping)해 사용하는 옵셔널 바인딩(Optional Binding) 방식입니다.</br>
-if 문 내에서만 유효한 지역변수로 값을 꺼내며, nil일 경우 else 블록을 수행합니다.</br>
+Swift의 if let 구문은 옵셔널(Optional) 변수의 값이 nil인지 아닌지 검사하여, nil이 아닐 때만 안전하게 내부 값을 언래핑(Unwrapping)해 사용하는 옵셔널 바인딩(Optional Binding) 방식입니다.</br>
+if 문 내에서만 유효한 지역변수로 값을 꺼내며, nil일 경우 else 블록을 수행합니다.</br>
 옵셔널 값을 처리하는 다른 방법은 ?? 연산자를 사용하여 기본값을 제공하는 것입니다. 옵셔널 값이 없다면 기본값이 대신 사용됩니다.
 
 ```swift
@@ -284,10 +284,7 @@ default:
 }
 // Prints "Is it a spicy red pepper?".
 ```
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 *C, C++, Java 등 과거의 언어들에서는 switch 구문에 default를 생략해도 정상적으로 실행됩니다. </br>
 만약 일치하는 case가 없다면, 시스템은 아무 작업도 수행하지 않고 조건문을 조용히 빠져나갑니다.</br>
 Swift는 이를 심각한 시스템 결함 유발 요소로 간주합니다. 평가 대상이 가질 수 있는 모든 범위에 대해 명시적인 대처가 없다면, 컴파일러는 다음과 같이 명확하게 틀렸다고 지적하고 수정을 요구합니다.*
@@ -295,7 +292,7 @@ Swift는 이를 심각한 시스템 결함 유발 요소로 간주합니다. 평
 ```
 case let x where x.hasSuffix("pepper")
 ```
-<<<<<<< Updated upstream
+
 <code>*let x*</code>는 비교를 하는 것이 아니라, 현재 평가 중인 값("red pepper")을 새로운 지역 상수 x에 무조건 대입하겠다는 선언입니다. 이 시점에서 x는 "red pepper"라는 문자열 데이터를 갖게 됩니다.
 
 *default가 생략 가능한 유일한 상황</br>
@@ -422,16 +419,3 @@ greet(person: "Bob", day: "Tuesday")
 ## 오류 처리 (Error Handling)
 
 ## 제네릭 (Generics)
-=======
-
-<code>*let x*</code>는 비교를 하는 것이 아니라, 현재 평가 중인 값("red pepper")을 새로운 지역 상수 x에 무조건 대입하겠다는 선언입니다. 이 시점에서 x는 "red pepper"라는 문자열 데이터를 갖게 됩니다.
-
-- #### for-in을 사용하여 각 키-값 쌍에 사용할 이름의 쌍을 제공하여 딕셔너리의 항목을 조회합니다.
-
-```swift
-
-```
-
-클로저 모르겠음 
-튜플 모르겟음
->>>>>>> Stashed changes
